@@ -9,6 +9,11 @@ set(RAYLIB_DIR "C:/raylib")
 include_directories(${RAYLIB_DIR}/include)
 link_directories(${RAYLIB_DIR}/lib)
 
-add_executable(MetaTicTacToe main.cpp)
+add_executable(MetaTicTacToe main.cpp
+        include/Game.h
+        include/Board.h
+        include/Cell.h
+        include/Renderer.h
+        include/InputHandler.h)
 
 target_link_libraries(MetaTicTacToe raylib opengl32 gdi32 winmm)
