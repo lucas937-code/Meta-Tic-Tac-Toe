@@ -14,6 +14,7 @@ add_executable(MetaTicTacToe main.cpp
         include/Board.h
         include/Cell.h
         include/Renderer.h
-        include/InputHandler.h)
+        include/InputHandler.h
+        src/Game.cpp)
 
 target_link_libraries(MetaTicTacToe raylib opengl32 gdi32 winmm)

@@ -1,15 +1,14 @@
-#include "raylib.h"
+#include <iostream>
+#include "include/Game.h"
 
 int main() {
-    InitWindow(1500, 1500, "Raylib mit CLion");
+    Game game;
 
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("Raylib funktioniert!", 300, 280, 20, DARKBLUE);
-        EndDrawing();
+    if (!game.IsRunning()) {
+        std::cerr << "Error occurred while starting the game" << std::endl;
+        return 1;
     }
 
-    CloseWindow();
+    game.Run();
     return 0;
 }
