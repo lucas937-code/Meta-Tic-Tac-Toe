@@ -4,11 +4,7 @@
 #include <vector>
 #include "Cell.h"
 
-enum class Winner {
-    TIE,
-    X,
-    O
-};
+enum class Winner { TIE, X, O };
 
 class Board {
 public:
@@ -22,6 +18,8 @@ public:
 
 private:
     std::vector<std::vector<Cell>> cells;
+    int cellSize;
+    int boardSize;
     bool isMainBoard;
     Winner winner;
 };

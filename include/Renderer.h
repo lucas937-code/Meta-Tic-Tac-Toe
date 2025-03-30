@@ -6,7 +6,7 @@
 
 class Renderer {
 public:
-    static void DrawBoard(const Board &board);
+    static void DrawBoard();
 
     static void DrawCell(int x, int y, CellState state);
 };

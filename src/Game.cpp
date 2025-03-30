@@ -1,8 +1,11 @@
 #include "../include/Game.h"
+#include "../include/Renderer.h"
 
 Game::Game() {
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Meta TicTacToe");
+    InitWindow(WINDOW_SIZE, WINDOW_SIZE, "Meta TicTacToe");
+    SetTargetFPS(60);
 
+    isXTurn = true;
     isRunning = IsWindowReady();
 }
 
@@ -20,8 +23,9 @@ void Game::Run() {
     if (!isRunning) return;
 
     while (!WindowShouldClose()) {
-        Update();
-        Draw();
+        BeginDrawing();
+        Renderer::DrawBoard();
+        EndDrawing();
     }
 }
 

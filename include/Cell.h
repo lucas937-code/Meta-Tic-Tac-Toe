@@ -1,9 +1,7 @@
 #ifndef METATICTACTOE_CELL_H
 #define METATICTACTOE_CELL_H
 
-enum class CellState {
-    EMPTY, X, O
-};
+enum class CellState { EMPTY, X, O };
 
 class Cell {
 public:
@@ -11,7 +9,7 @@ public:
 
     void Draw();
 
-    void SetState();
+    void SetState(CellState state);
 
     CellState GetState() const;
 
