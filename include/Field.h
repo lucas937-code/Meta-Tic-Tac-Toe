@@ -12,10 +12,12 @@ class Field {
 public:
     Field(int x, int y);
 
-    [[nodiscard]] std::vector<std::vector<Cell>>& GetCells();
+    [[nodiscard]] std::vector<std::vector<Cell>> &GetCells();
 
     void Draw() const;
+
     [[nodiscard]] int GetX() const;
+
     [[nodiscard]] int GetY() const;
 
 private:

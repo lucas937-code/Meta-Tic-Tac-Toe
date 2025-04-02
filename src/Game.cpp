@@ -84,8 +84,8 @@ void Game::HandleInput() {
                     return;
                 }
 
-                for (const auto& cellRow : fields[row][col].GetCells()) {
-                    for (const auto& cell : cellRow) {
+                for (const auto &cellRow: fields[row][col].GetCells()) {
+                    for (const auto &cell: cellRow) {
                         Renderer::DrawCell(cell);
                     }
                 }

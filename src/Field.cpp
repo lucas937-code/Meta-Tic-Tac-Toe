@@ -27,7 +27,7 @@ void Field::Draw() const {
     DrawLine(centerX - 5, centerY + 5, centerX + 5, centerY - 5, RED);*/
 }
 
-std::vector<std::vector<Cell>>& Field::GetCells() {
+std::vector<std::vector<Cell>> &Field::GetCells() {
     return cells;
 }
 
