@@ -1,9 +1,7 @@
 #include "../include/Field.h"
 #include "../include/Game.h"
 
-Field::Field(int x, int y) : x(x), y(y) {
-    winner = Winner::NOT_SET;
-
+Field::Field(int x, int y) : x(x), y(y), winner(Winner::NOT_SET) {
     cells.resize(FIELD_AMOUNT, std::vector<Cell>(FIELD_AMOUNT));
 
     for (int row = 0; row < FIELD_AMOUNT; row++) {
