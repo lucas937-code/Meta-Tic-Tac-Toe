@@ -11,6 +11,10 @@ const int OFFSET = (WINDOW_SIZE - BOARD_SIZE) / 2;
 const int FIELD_AMOUNT = 3;
 const int CELL_SIZE = BOARD_SIZE / (FIELD_AMOUNT * FIELD_AMOUNT);
 
+const Color CUSTOM_BG = {20, 20, 20};
+const Color CUSTOM_RED = {181, 0, 0};
+const Color CUSTOM_BLUE = {0, 34, 78};
+
 class Game {
 public:
     Game();

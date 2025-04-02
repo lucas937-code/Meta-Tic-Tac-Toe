@@ -2,11 +2,11 @@
 #include "raylib.h"
 #include "../include/Game.h"
 
-const int thickLineWidth = 6;
-const int thinLineWidth = 2;
+const int thickLineWidth = 7;
+const int thinLineWidth = 1;
 
 void Renderer::DrawBoard() {
-    ClearBackground(BLACK);
+    ClearBackground(CUSTOM_BG);
 
     // draw square around the board
     DrawRectangleLinesEx({(float) OFFSET,
