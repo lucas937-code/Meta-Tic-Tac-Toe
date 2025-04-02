@@ -84,11 +84,5 @@ void Renderer::DrawCell(const Cell &cell) {
             return;
     }
 
-    DrawTexturePro(texture,
-                   source,
-                   dest,
-                   {0, 0},
-                   0.0f,
-                   WHITE
-    );
+    DrawTexturePro(texture, source, dest,{0, 0},0.0f,WHITE);
 }
