@@ -5,6 +5,9 @@
 const int thickLineWidth = 7;
 const int thinLineWidth = 1;
 
+Texture2D Renderer::xTexture;
+Texture2D Renderer::oTexture;
+
 void Renderer::DrawBoard() {
     ClearBackground(CUSTOM_BG);
 
@@ -51,4 +54,41 @@ void Renderer::DrawBoard() {
                    thinLineWidth,
                    WHITE);
     }
+}
+
+void Renderer::LoadTextures() {
+    xTexture = LoadTexture("../assets/x.png");
+    oTexture = LoadTexture("../assets/o.png");
+}
+
+void Renderer::UnloadTextures() {
+    UnloadTexture(xTexture);
+    UnloadTexture(oTexture);
+}
+
+void Renderer::DrawCell(const Cell &cell) {
+    Texture2D texture;
+    Rectangle source;
+    Rectangle dest = {(float) cell.GetX(), (float) cell.GetY(), (float) CELL_SIZE, (float) CELL_SIZE};
+
+    switch (cell.GetState()) {
+        case CellState::X:
+            texture = xTexture;
+            source = {0, 0, static_cast<float>(xTexture.width), static_cast<float>(xTexture.height)};
+            break;
+        case CellState::O:
+            texture = oTexture;
+            source = {0, 0, static_cast<float>(oTexture.width), static_cast<float>(oTexture.height)};
+            break;
+        default:
+            return;
+    }
+
+    DrawTexturePro(texture,
+                   source,
+                   dest,
+                   {0, 0},
+                   0.0f,
+                   WHITE
+    );
 }

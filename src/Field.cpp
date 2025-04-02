@@ -1,5 +1,6 @@
 #include "../include/Field.h"
 #include "../include/Game.h"
+#include "../include/Renderer.h"
 
 Field::Field(int x, int y) : x(x), y(y), winner(Winner::NOT_SET) {
     cells.resize(FIELD_AMOUNT, std::vector<Cell>(FIELD_AMOUNT));
@@ -14,7 +15,8 @@ Field::Field(int x, int y) : x(x), y(y), winner(Winner::NOT_SET) {
 void Field::Draw() const {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
-            cells[row][col].Draw();
+            //cells[row][col].Draw();
+            Renderer::DrawCell(cells[row][col]);
         }
     }
 
@@ -25,6 +27,14 @@ void Field::Draw() const {
     DrawLine(centerX - 5, centerY + 5, centerX + 5, centerY - 5, RED);*/
 }
 
-std::vector<std::vector<Cell>> Field::GetCells() const {
+std::vector<std::vector<Cell>>& Field::GetCells() {
     return cells;
+}
+
+int Field::GetX() const {
+    return x;
+}
+
+int Field::GetY() const {
+    return y;
 }

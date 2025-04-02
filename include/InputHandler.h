@@ -5,7 +5,7 @@
 
 class InputHandler {
 public:
-    static void ProcessClick(int mouseX, int mouseY, Field &board, bool isXTurn);
+    static void ProcessClick(int mouseX, int mouseY, Field &field, bool isXTurn);
 };
 
 #endif

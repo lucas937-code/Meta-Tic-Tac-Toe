@@ -7,18 +7,21 @@ enum class CellState {
 
 class Cell {
 public:
-    Cell() : x(0), y(0), state(CellState::EMPTY) {}
+    Cell();
 
     Cell(int x, int y);
 
-    int x, y;
-
     [[nodiscard]] CellState GetState() const;
 
-    void Draw() const;
+    void SetState(CellState newState);
+
+    [[nodiscard]] int GetX() const;
+
+    [[nodiscard]] int GetY() const;
 
 private:
     CellState state;
+    int x, y;
 };
 
 #endif
