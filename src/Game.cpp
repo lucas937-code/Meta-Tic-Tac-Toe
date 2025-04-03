@@ -44,7 +44,6 @@ void Game::Run() {
         Update();
 
         BeginDrawing();
-        ClearBackground(BLACK);
         Renderer::DrawBoard();
         Draw();
         EndDrawing();
@@ -68,25 +67,14 @@ void Game::Draw() {
 void Game::HandleInput() {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
-        Cell *clickedCell = nullptr;
+        const int mouseX = static_cast<int>(mousePos.x);
+        const int mouseY = static_cast<int>(mousePos.y);
 
-        for (int row = 0; row < FIELD_AMOUNT; row++) {
-            for (int col = 0; col < FIELD_AMOUNT; col++) {
-                // static cast is fine here since the window size can't be changed anyway
-                int mouseX = static_cast<int>(mousePos.x);
-                int mouseY = static_cast<int>(mousePos.y);
+        Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, fields, isXTurn);
 
-                Field &field = fields[row][col];
-
-                if (mouseX >= field.GetX() && mouseX <= field.GetX() + BOARD_SIZE / FIELD_AMOUNT &&
-                    mouseY >= field.GetY() && mouseY <= field.GetY() + BOARD_SIZE / FIELD_AMOUNT) {
-
-                    clickedCell = InputHandler::ProcessClick(mouseX, mouseY, field, isXTurn);
-                }
-            }
-        }
-        // condition works because ProcessClick returns nullptr if state is already set
         if (clickedCell != nullptr && clickedCell->GetState() == CellState::EMPTY) {
+            clickedCell->SetState(isXTurn ? CellState::X : CellState::O);
+            Game::NextTurn();
             Renderer::FillCell(clickedCell);
         }
     }
