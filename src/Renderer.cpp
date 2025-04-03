@@ -1,13 +1,13 @@
 #include "../include/Renderer.h"
 #include "raylib.h"
 #include "../include/Game.h"
-#include <string>
+#include <filesystem>
+#include <iostream>
 
 const int thickLineWidth = 7;
 const int thinLineWidth = 1;
 
-Texture2D Renderer::xTexture;
-Texture2D Renderer::oTexture;
+std::unordered_map<std::string, Texture2D> Renderer::textureMap;
 
 void Renderer::DrawBoard() {
     ClearBackground(CUSTOM_BG);
@@ -58,23 +58,27 @@ void Renderer::DrawBoard() {
 }
 
 void Renderer::LoadTextures() {
-    xTexture = LoadTexture("../assets/x.png");
-    oTexture = LoadTexture("../assets/o.png");
+    std::string dirPath = "../assets";
+    for (const auto &img : std::filesystem::directory_iterator(dirPath)) {
+        textureMap[img.path().filename().string()] = LoadTexture(img.path().string().c_str());
+        std::cerr << img.path().filename().string() << std::endl;
+    }
 }
 
 void Renderer::UnloadTextures() {
-    UnloadTexture(xTexture);
-    UnloadTexture(oTexture);
+    for (const auto &texture : textureMap) {
+        UnloadTexture(texture.second);
+    }
 }
 
 void Renderer::FillCell(const Cell *cell) {
     Texture2D texture;
     switch (cell->GetState()) {
         case CellState::X:
-            texture = xTexture;
+            texture = textureMap["x.png"];
             break;
         case CellState::O:
-            texture = oTexture;
+            texture = textureMap["o.png"];
             break;
         default:
             return;
@@ -96,13 +100,14 @@ void Renderer::FillField(Field &field) {
     Texture2D texture;
     switch (field.GetWinner()) {
         case Winner::X:
-            texture = xTexture;
+            texture = textureMap["x_white.png"];
             break;
         case Winner::O:
-            texture = oTexture;
+            texture = textureMap["o_white.png"];
             break;
         case Winner::TIE:
-            return;
+            texture = textureMap["tie.png"];
+            break;
         default:
             return;
     }

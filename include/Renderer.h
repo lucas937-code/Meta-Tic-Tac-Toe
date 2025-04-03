@@ -1,6 +1,7 @@
 #ifndef METATICTACTOE_RENDERER_H
 #define METATICTACTOE_RENDERER_H
 
+#include <string>
 #include "Field.h"
 #include "Cell.h"
 #include "raylib.h"
@@ -23,8 +24,7 @@ public:
     static void FillField(Field &field);
 
 private:
-    static Texture2D xTexture;
-    static Texture2D oTexture;
+    static std::unordered_map<std::string, Texture2D> textureMap;
 };
 
 #endif
