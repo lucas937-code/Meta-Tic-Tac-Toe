@@ -130,3 +130,14 @@ void Renderer::FillField(Field &field) {
 
     DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
+
+void Renderer::MarkTargetField(bool isXTurn) {
+    Field *field = Game::GetTargetField();
+    if (field == nullptr) return;
+
+    auto x = static_cast<float>(field->GetX());
+    auto y = static_cast<float>(field->GetY());
+    auto size = static_cast<float>(FIELD_SIZE);
+    Color color = isXTurn ? CUSTOM_RED : CUSTOM_BLUE;
+    DrawRectangleLinesEx({x, y, size, size}, thickLineWidth, color);
+}

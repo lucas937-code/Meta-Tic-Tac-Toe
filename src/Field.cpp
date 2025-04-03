@@ -2,6 +2,8 @@
 #include "../include/Game.h"
 #include "../include/Renderer.h"
 
+std::unordered_map<Cell *, std::pair<int, int>> Field::cellMap;
+
 Field::Field(int x, int y) : x(x), y(y), winner(Winner::NOT_SET) {
     cells.resize(FIELD_AMOUNT, std::vector<Cell>(FIELD_AMOUNT));
 
@@ -31,7 +33,7 @@ std::vector<std::vector<Cell>> &Field::GetCells() {
     return cells;
 }
 
-std::pair<int, int> Field::GetCellPosition(Cell &cell) {
+std::pair<int, int> &Field::GetCellPosition(Cell &cell) {
     return cellMap[&cell];
 }
 

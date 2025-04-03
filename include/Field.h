@@ -36,7 +36,7 @@ public:
      * Uses the cellMap to determine the position of the given cell
      * @return pair of (row, col)
      */
-     std::pair<int, int> GetCellPosition(Cell &cell);
+    static std::pair<int, int> &GetCellPosition(Cell &cell);
 
     /// Draws cells of the field
     void Draw() const;
@@ -59,7 +59,7 @@ public:
      * Getter of field "winner"
      * @return copy of "winner"
      */
-     [[nodiscard]] Winner GetWinner() const;
+    [[nodiscard]] Winner GetWinner() const;
 
     /**
      * Determines if a player has won the game and sets the winner if so
@@ -69,7 +69,7 @@ public:
 
 private:
     std::vector<std::vector<Cell>> cells;
-    std::unordered_map<Cell*, std::pair<int, int>> cellMap;
+    static std::unordered_map<Cell *, std::pair<int, int>> cellMap;
     Winner winner;
     int x, y;
 };

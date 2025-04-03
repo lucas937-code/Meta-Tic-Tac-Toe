@@ -32,6 +32,9 @@ public:
     /// Marks the field according to the winner
     static void FillField(Field &field);
 
+    /// Draws a red rectangle around the target field
+    static void MarkTargetField(bool isXTurn);
+
 private:
     static std::unordered_map<std::string, Texture2D> textureMap;
     static std::string logMessage;

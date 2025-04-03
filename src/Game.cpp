@@ -4,6 +4,7 @@
 #include "raylib.h"
 
 bool Game::isXTurn;
+Field *Game::targetField;
 
 Game::Game() {
     InitWindow(WINDOW_SIZE, WINDOW_SIZE, "Meta TicTacToe");
@@ -11,6 +12,7 @@ Game::Game() {
 
     isRunning = IsWindowReady();
     isXTurn = true;
+    targetField = nullptr;
     Renderer::SetLogMessage("It's X's Turn");
 
     Renderer::LoadTextures();
@@ -20,6 +22,7 @@ Game::Game() {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
             fields[row][col] = Field(OFFSET + col * FIELD_SIZE, OFFSET + row * FIELD_SIZE);
+            fieldMap[{row, col}] = &fields[row][col];
         }
     }
 }
@@ -33,6 +36,10 @@ bool Game::IsRunning() const {
     return isRunning;
 }
 
+Field *Game::GetTargetField() {
+    return targetField;
+}
+
 void Game::NextTurn() {
     isXTurn = !isXTurn;
     Renderer::SetLogMessage(isXTurn ? "It's X's Turn" : "It's O's Turn");
@@ -42,22 +49,15 @@ void Game::Run() {
     if (!isRunning) return;
 
     while (!WindowShouldClose()) {
-        Update();
-
         BeginDrawing();
         Renderer::DrawBoard();
         Draw();
         Renderer::ShowLogMessage();
+        Renderer::MarkTargetField(isXTurn);
         EndDrawing();
 
-        Field *modifiedField = HandleInput();
-
-        if (modifiedField != nullptr) modifiedField->CheckWin();
+        HandleInput();
     }
-}
-
-void Game::Update() {
-
 }
 
 void Game::Draw() {
@@ -76,13 +76,36 @@ Field *Game::HandleInput() {
         const int mouseY = static_cast<int>(mousePos.y);
 
         Field *clickedField = InputHandler::DetermineClickedField(mouseX, mouseY, fields);
+        if (clickedField == nullptr) return nullptr;
+        if (clickedField->GetWinner() != Winner::NOT_SET) {
+            Renderer::SetLogMessage("Field is already sealed");
+            return nullptr;
+        } else if (targetField != nullptr && clickedField != targetField) {
+            Renderer::SetLogMessage("Use the highlighted field");
+            return nullptr;
+        }
+
         Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, clickedField, isXTurn);
 
-        if (clickedCell != nullptr && clickedCell->GetState() == CellState::EMPTY) {
+        if (clickedCell == nullptr) return nullptr;
+
+        if (clickedCell->GetState() != CellState::EMPTY) {
+            Renderer::SetLogMessage("Cell is already taken");
+        } else {
             clickedCell->SetState(isXTurn ? CellState::X : CellState::O);
             Game::NextTurn();
+            SetTargetField(*clickedCell);
+            if (clickedField->CheckWin() != Winner::NOT_SET) {
+                targetField = nullptr;
+            }
             return clickedField;
         }
     }
     return nullptr;
+}
+
+void Game::SetTargetField(Cell &cell) {
+    std::pair<int, int> &cellPosition = Field::GetCellPosition(cell);
+    Field &field = *fieldMap[cellPosition];
+    targetField = field.GetWinner() == Winner::NOT_SET ? &field : nullptr;
 }
