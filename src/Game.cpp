@@ -85,7 +85,7 @@ Field *Game::HandleInput() {
             return nullptr;
         }
 
-        Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, clickedField, isXTurn);
+        Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, clickedField);
 
         if (clickedCell == nullptr) return nullptr;
 

@@ -1,6 +1,6 @@
 #include "../include/InputHandler.h"
 
-Cell *InputHandler::DetermineClickedCell(int mouseX, int mouseY, Field *clickedField,  bool isXTurn) {
+Cell *InputHandler::DetermineClickedCell(int mouseX, int mouseY, Field *clickedField) {
     if (clickedField == nullptr) return nullptr;
 
     for (int row = 0; row < FIELD_AMOUNT; row++) {

@@ -56,7 +56,7 @@ private:
 
     void Draw();
 
-    bool CheckWin();
+    //bool CheckWin();
 };
 
 #endif
