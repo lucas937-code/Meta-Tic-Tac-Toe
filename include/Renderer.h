@@ -19,6 +19,9 @@ public:
     /// Fills the cell with a X or O depending on its state
     static void FillCell(const Cell* cell);
 
+    /// Marks the field according to the winner
+    static void FillField(Field &field);
+
 private:
     static Texture2D xTexture;
     static Texture2D oTexture;

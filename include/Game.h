@@ -10,6 +10,7 @@ const int BOARD_SIZE = WINDOW_SIZE - 150;
 const int OFFSET = (WINDOW_SIZE - BOARD_SIZE) / 2;
 const int FIELD_AMOUNT = 3;
 const int CELL_SIZE = BOARD_SIZE / (FIELD_AMOUNT * FIELD_AMOUNT);
+const int FIELD_SIZE = BOARD_SIZE / FIELD_AMOUNT;
 
 const Color CUSTOM_BG = {20, 20, 20};
 const Color CUSTOM_RED = {181, 0, 0};
@@ -34,12 +35,13 @@ public:
 
     /// Starts the main loop of the game
     void Run();
+
 private:
     std::vector<std::vector<Field>> fields;
     static bool isXTurn;
     bool isRunning;
 
-    void HandleInput();
+    Field *HandleInput();
 
     void Update();
 

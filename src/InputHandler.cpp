@@ -1,7 +1,6 @@
 #include "../include/InputHandler.h"
 
-Cell *InputHandler::DetermineClickedCell(int mouseX, int mouseY, std::vector<std::vector<Field>> &fields,  bool isXTurn) {
-    Field *clickedField = DetermineClickedField(fields, mouseX, mouseY);
+Cell *InputHandler::DetermineClickedCell(int mouseX, int mouseY, Field *clickedField,  bool isXTurn) {
     if (clickedField == nullptr) return nullptr;
 
     for (int row = 0; row < FIELD_AMOUNT; row++) {
@@ -18,14 +17,13 @@ Cell *InputHandler::DetermineClickedCell(int mouseX, int mouseY, std::vector<std
     return nullptr;
 }
 
-Field *InputHandler::DetermineClickedField(std::vector<std::vector<Field>> &fields, int mouseX, int mouseY) {
+Field *InputHandler::DetermineClickedField(int mouseX, int mouseY, std::vector<std::vector<Field>> &fields) {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
             Field &field = fields[row][col];
-            const int fieldSize = BOARD_SIZE / FIELD_AMOUNT;
 
-            if (mouseX >= field.GetX() && mouseX <= field.GetX() + fieldSize &&
-                mouseY >= field.GetY() && mouseY <= field.GetY() + fieldSize) {
+            if (mouseX >= field.GetX() && mouseX <= field.GetX() + FIELD_SIZE &&
+                mouseY >= field.GetY() && mouseY <= field.GetY() + FIELD_SIZE) {
 
                 return &field;
             }

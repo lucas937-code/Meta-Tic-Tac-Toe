@@ -1,6 +1,7 @@
 #include "../include/Renderer.h"
 #include "raylib.h"
 #include "../include/Game.h"
+#include <string>
 
 const int thickLineWidth = 7;
 const int thinLineWidth = 1;
@@ -66,23 +67,53 @@ void Renderer::UnloadTextures() {
     UnloadTexture(oTexture);
 }
 
-void Renderer::FillCell(const Cell* cell) {
+void Renderer::FillCell(const Cell *cell) {
     Texture2D texture;
-    Rectangle source;
-    Rectangle dest = {(float) cell->GetX(), (float) cell->GetY(), (float) CELL_SIZE, (float) CELL_SIZE};
-
     switch (cell->GetState()) {
         case CellState::X:
             texture = xTexture;
-            source = {0, 0, static_cast<float>(xTexture.width), static_cast<float>(xTexture.height)};
             break;
         case CellState::O:
             texture = oTexture;
-            source = {0, 0, static_cast<float>(oTexture.width), static_cast<float>(oTexture.height)};
             break;
         default:
             return;
     }
 
-    DrawTexturePro(texture, source, dest,{0, 0},0.0f,WHITE);
+    Rectangle source = {0, 0,
+                        static_cast<float>(texture.width),
+                        static_cast<float>(texture.height)};
+
+    Rectangle dest = {static_cast<float>(cell->GetX()),
+                      static_cast<float>(cell->GetY()),
+                      static_cast<float>(CELL_SIZE),
+                      static_cast<float>(CELL_SIZE)};
+
+    DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
+}
+
+void Renderer::FillField(Field &field) {
+    Texture2D texture;
+    switch (field.GetWinner()) {
+        case Winner::X:
+            texture = xTexture;
+            break;
+        case Winner::O:
+            texture = oTexture;
+            break;
+        case Winner::TIE:
+            return;
+        default:
+            return;
+    }
+
+    Rectangle source = {0, 0,
+                        static_cast<float>(texture.width),
+                        static_cast<float>(texture.height)};
+    Rectangle dest = {static_cast<float>(field.GetX()),
+                      static_cast<float>(field.GetY()),
+                      static_cast<float>(FIELD_SIZE),
+                      static_cast<float>(FIELD_SIZE)};
+
+    DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
