@@ -9,16 +9,16 @@ Game::Game() {
     InitWindow(WINDOW_SIZE, WINDOW_SIZE, "Meta TicTacToe");
     SetTargetFPS(60);
 
-    isXTurn = true;
     isRunning = IsWindowReady();
+    isXTurn = true;
 
     Renderer::LoadTextures();
 
     int fieldSize = BOARD_SIZE / FIELD_AMOUNT;
-    fields = std::vector<std::vector<Field>>(3, std::vector<Field>(3, Field(0, 0)));
+    fields = std::vector<std::vector<Field>>(FIELD_AMOUNT, std::vector<Field>(FIELD_AMOUNT, Field(0, 0)));
 
-    for (int row = 0; row < 3; row++) {
-        for (int col = 0; col < 3; col++) {
+    for (int row = 0; row < FIELD_AMOUNT; row++) {
+        for (int col = 0; col < FIELD_AMOUNT; col++) {
             fields[row][col] = Field(OFFSET + col * fieldSize, OFFSET + row * fieldSize);
         }
     }
@@ -58,8 +58,8 @@ void Game::Update() {
 }
 
 void Game::Draw() {
-    for (int row = 0; row < 3; row++) {
-        for (int col = 0; col < 3; col++) {
+    for (int row = 0; row < FIELD_AMOUNT; row++) {
+        for (int col = 0; col < FIELD_AMOUNT; col++) {
             fields[row][col].Draw();
         }
     }
@@ -68,28 +68,26 @@ void Game::Draw() {
 void Game::HandleInput() {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
+        Cell *clickedCell = nullptr;
 
         for (int row = 0; row < FIELD_AMOUNT; row++) {
             for (int col = 0; col < FIELD_AMOUNT; col++) {
-                // C cast is fine here since the window size can't be changed anyway
+                // static cast is fine here since the window size can't be changed anyway
                 int mouseX = static_cast<int>(mousePos.x);
                 int mouseY = static_cast<int>(mousePos.y);
 
                 Field &field = fields[row][col];
 
-                if (mouseX >= field.GetX() && mouseX <= field.GetX() + BOARD_SIZE / 3 &&
-                    mouseY >= field.GetY() && mouseY <= field.GetY() + BOARD_SIZE / 3) {
+                if (mouseX >= field.GetX() && mouseX <= field.GetX() + BOARD_SIZE / FIELD_AMOUNT &&
+                    mouseY >= field.GetY() && mouseY <= field.GetY() + BOARD_SIZE / FIELD_AMOUNT) {
 
-                    InputHandler::ProcessClick(mouseX, mouseY, field, isXTurn);
-                    return;
-                }
-
-                for (const auto &cellRow: fields[row][col].GetCells()) {
-                    for (const auto &cell: cellRow) {
-                        Renderer::DrawCell(cell);
-                    }
+                    clickedCell = InputHandler::ProcessClick(mouseX, mouseY, field, isXTurn);
                 }
             }
+        }
+        // condition works because ProcessClick returns nullptr if state is already set
+        if (clickedCell != nullptr && clickedCell->GetState() == CellState::EMPTY) {
+            Renderer::FillCell(clickedCell);
         }
     }
 }

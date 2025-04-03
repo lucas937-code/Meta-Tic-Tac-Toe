@@ -1,8 +1,7 @@
 #include "../include/InputHandler.h"
 #include "../include/Game.h"
-#include "raylib.h"
 
-void InputHandler::ProcessClick(int mouseX, int mouseY, Field &field, bool isXTurn) {
+Cell *InputHandler::ProcessClick(int mouseX, int mouseY, Field &field, bool isXTurn) {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
             Cell &cell = field.GetCells()[row][col];
@@ -13,8 +12,10 @@ void InputHandler::ProcessClick(int mouseX, int mouseY, Field &field, bool isXTu
                 if (cell.GetState() == CellState::EMPTY) {
                     cell.SetState(isXTurn ? CellState::X : CellState::O);
                     Game::NextTurn();
+                    return &cell;
                 }
             }
         }
     }
+    return nullptr;
 }

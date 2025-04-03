@@ -66,12 +66,12 @@ void Renderer::UnloadTextures() {
     UnloadTexture(oTexture);
 }
 
-void Renderer::DrawCell(const Cell &cell) {
+void Renderer::FillCell(const Cell* cell) {
     Texture2D texture;
     Rectangle source;
-    Rectangle dest = {(float) cell.GetX(), (float) cell.GetY(), (float) CELL_SIZE, (float) CELL_SIZE};
+    Rectangle dest = {(float) cell->GetX(), (float) cell->GetY(), (float) CELL_SIZE, (float) CELL_SIZE};
 
-    switch (cell.GetState()) {
+    switch (cell->GetState()) {
         case CellState::X:
             texture = xTexture;
             source = {0, 0, static_cast<float>(xTexture.width), static_cast<float>(xTexture.height)};

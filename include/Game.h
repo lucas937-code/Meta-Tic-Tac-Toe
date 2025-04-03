@@ -17,15 +17,23 @@ const Color CUSTOM_BLUE = {0, 51, 103};
 
 class Game {
 public:
+    /// Creates the window, loads the textures and initializes the fields
     Game();
 
+    /// Cleans up the program after it finished
     ~Game();
 
-    bool IsRunning() const;
+    /**
+     * Determines whether the game started successfully
+     * @return copy of "isRunning"
+     */
+    [[nodiscard]] bool IsRunning() const;
 
+    /// Negates "isXTurn"
     static void NextTurn();
 
-    void Run(); // main loop running the game
+    /// Starts the main loop of the game
+    void Run();
 private:
     std::vector<std::vector<Field>> fields;
     static bool isXTurn;

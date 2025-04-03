@@ -15,8 +15,7 @@ Field::Field(int x, int y) : x(x), y(y), winner(Winner::NOT_SET) {
 void Field::Draw() const {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
-            //cells[row][col].Draw();
-            Renderer::DrawCell(cells[row][col]);
+            Renderer::FillCell(&cells[row][col]);
         }
     }
 
