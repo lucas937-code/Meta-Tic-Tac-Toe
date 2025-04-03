@@ -2,11 +2,17 @@
 #include "raylib.h"
 #include "../include/Game.h"
 #include <filesystem>
+#include <utility>
 
 const int thickLineWidth = 7;
 const int thinLineWidth = 1;
 
 std::unordered_map<std::string, Texture2D> Renderer::textureMap;
+std::string Renderer::logMessage;
+
+void Renderer::SetLogMessage(std::string msg) {
+    logMessage = std::move(msg);
+}
 
 void Renderer::DrawBoard() {
     ClearBackground(CUSTOM_BG);
@@ -54,6 +60,10 @@ void Renderer::DrawBoard() {
                    thinLineWidth,
                    WHITE);
     }
+}
+
+void Renderer::ShowLogMessage() {
+    DrawText(logMessage.c_str(), 30, WINDOW_SIZE - 55, 50, WHITE);
 }
 
 void Renderer::LoadTextures() {

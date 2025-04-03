@@ -11,6 +11,7 @@ Game::Game() {
 
     isRunning = IsWindowReady();
     isXTurn = true;
+    Renderer::SetLogMessage("It's X's Turn");
 
     Renderer::LoadTextures();
 
@@ -34,6 +35,7 @@ bool Game::IsRunning() const {
 
 void Game::NextTurn() {
     isXTurn = !isXTurn;
+    Renderer::SetLogMessage(isXTurn ? "It's X's Turn" : "It's O's Turn");
 }
 
 void Game::Run() {
@@ -45,6 +47,7 @@ void Game::Run() {
         BeginDrawing();
         Renderer::DrawBoard();
         Draw();
+        Renderer::ShowLogMessage();
         EndDrawing();
 
         Field *modifiedField = HandleInput();

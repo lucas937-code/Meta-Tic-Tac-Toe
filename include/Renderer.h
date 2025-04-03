@@ -8,8 +8,17 @@
 
 class Renderer {
 public:
+    /**
+     * Setter for the log message (message on the bottom left corner of the window)
+     * @param msg new message
+     */
+    static void SetLogMessage(std::string msg);
+
     /// Draws the lines that make up the board
     static void DrawBoard();
+
+    /// Shows the current log message
+    static void ShowLogMessage();
 
     /// Loads the textures for the pictures
     static void LoadTextures();
@@ -25,6 +34,7 @@ public:
 
 private:
     static std::unordered_map<std::string, Texture2D> textureMap;
+    static std::string logMessage;
 };
 
 #endif
