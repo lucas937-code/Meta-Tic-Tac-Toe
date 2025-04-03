@@ -2,7 +2,6 @@
 #include "raylib.h"
 #include "../include/Game.h"
 #include <filesystem>
-#include <iostream>
 
 const int thickLineWidth = 7;
 const int thinLineWidth = 1;
@@ -61,7 +60,6 @@ void Renderer::LoadTextures() {
     std::string dirPath = "../assets";
     for (const auto &img : std::filesystem::directory_iterator(dirPath)) {
         textureMap[img.path().filename().string()] = LoadTexture(img.path().string().c_str());
-        std::cerr << img.path().filename().string() << std::endl;
     }
 }
 
