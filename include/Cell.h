@@ -1,6 +1,8 @@
 #ifndef METATICTACTOE_CELL_H
 #define METATICTACTOE_CELL_H
 
+#include "BoardElement.h"
+
 /// Enum class that represents the state of a cell
 enum class CellState {
     EMPTY,      ///< cell is empty
@@ -11,7 +13,7 @@ enum class CellState {
 /**
  * Represents one cell of the a field and is the smallest unit on the board
  */
-class Cell {
+class Cell : public BoardElement {
 public:
     /// Initializes fields with standard values
     Cell();
@@ -35,23 +37,8 @@ public:
      */
     void SetState(CellState newState);
 
-    /**
-     * Getter of the field "x"\n
-     * x = x coordinate of the cell (pixels relative to top left corner of the window)
-     * @return copy of "x"
-     */
-    [[nodiscard]] int GetX() const;
-
-    /**
-     * Getter of the field "y"\n
-     * y = y coordinate of the cell (pixels relative to top left corner of the window)
-     * @return copy of "y"
-     */
-    [[nodiscard]] int GetY() const;
-
 private:
     CellState state;
-    int x, y;
 };
 
 #endif

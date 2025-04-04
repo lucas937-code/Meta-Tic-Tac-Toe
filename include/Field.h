@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include "Cell.h"
+#include "BoardElement.h"
 
 /// Enum class that is used to declare the winner of \b one \b field
 enum class Winner {
@@ -17,7 +18,7 @@ enum class Winner {
  * Represents one of the 9 fields of the whole board\n
  * contains 9 cells
  */
-class Field {
+class Field : public BoardElement {
 public:
     /**
      * Initializes the cells of the field
@@ -42,20 +43,6 @@ public:
     void Draw() const;
 
     /**
-     * Getter of field "x"\n
-     * x = x coordinate of the cell (pixels relative to top left corner of the window)
-     * @return copy of "x"
-     */
-    [[nodiscard]] int GetX() const;
-
-    /**
-     * Getter of field "y"\n
-     * y = y coordinate of the cell (pixels relative to top left corner of the window)
-     * @return copy of "y"
-     */
-    [[nodiscard]] int GetY() const;
-
-    /**
      * Getter of field "winner"
      * @return copy of "winner"
      */
@@ -71,7 +58,6 @@ private:
     std::vector<std::vector<Cell>> cells;
     static std::unordered_map<Cell *, std::pair<int, int>> cellMap;
     Winner winner;
-    int x, y;
 };
 
 #endif

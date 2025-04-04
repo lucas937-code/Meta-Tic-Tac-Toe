@@ -4,7 +4,7 @@
 
 std::unordered_map<Cell *, std::pair<int, int>> Field::cellMap;
 
-Field::Field(int x, int y) : x(x), y(y), winner(Winner::NOT_SET) {
+Field::Field(int x, int y) : BoardElement(x, y), winner(Winner::NOT_SET) {
     cells.resize(FIELD_AMOUNT, std::vector<Cell>(FIELD_AMOUNT));
 
     for (int row = 0; row < FIELD_AMOUNT; row++) {
@@ -35,14 +35,6 @@ std::vector<std::vector<Cell>> &Field::GetCells() {
 
 std::pair<int, int> &Field::GetCellPosition(Cell &cell) {
     return cellMap[&cell];
-}
-
-int Field::GetX() const {
-    return x;
-}
-
-int Field::GetY() const {
-    return y;
 }
 
 Winner Field::GetWinner() const {
