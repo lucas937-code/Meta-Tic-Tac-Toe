@@ -1,5 +1,4 @@
 #include "../include/Game.h"
-#include <iostream>
 #include "../include/Renderer.h"
 #include "../include/InputHandler.h"
 #include "raylib.h"
@@ -100,7 +99,6 @@ Field *Game::HandleInput() {
         Game::NextTurn();
         SetTargetField(*clickedCell);
         clickedField->SetWinner(clickedField->CheckWin());
-        std::cout << "Winner is " << std::string(winner == ExtendedState::Winner::X ? "X" : "O") << std::endl;
         return clickedField;
     }
     return nullptr;
