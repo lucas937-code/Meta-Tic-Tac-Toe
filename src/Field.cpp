@@ -3,7 +3,7 @@
 #include "../include/Renderer.h"
 
 Field::Field(int x, int y) : BoardElement(x, y) {
-    winner = ExtendedState::Winner::NOT_SET;
+    state = State::EMPTY;
 
     elements = std::vector<std::vector<BoardElement *>>(FIELD_AMOUNT, std::vector<BoardElement *>(FIELD_AMOUNT, nullptr));
 
@@ -21,8 +21,4 @@ void Field::Draw() const {
             Renderer::FillCell(dynamic_cast<const Cell *>(elements[row][col]));
         }
     }
-}
-
-void Field::SetWinner(ExtendedState::Winner winner) {
-    this->winner = winner;
 }

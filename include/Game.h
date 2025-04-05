@@ -37,7 +37,7 @@ public:
      */
      [[nodiscard]] static Field *GetTargetField();
 
-    /// Negates "isXTurn"
+    /// Negates "isXTurn" and updates the log message
     static void NextTurn();
 
     /// Starts the main loop of the game
@@ -48,7 +48,7 @@ private:
     bool isRunning;
     static Field *targetField;
 
-    void SetTargetField(Cell &cell);
+    Field *DetermineTargetField(Cell &cell);
 
     Field *HandleInput();
 

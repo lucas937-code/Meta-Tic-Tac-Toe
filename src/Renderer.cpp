@@ -82,10 +82,10 @@ void Renderer::UnloadTextures() {
 void Renderer::FillCell(const Cell *cell) {
     Texture2D texture;
     switch (cell->GetState()) {
-        case BaseState::State::X:
+        case State::X:
             texture = textureMap["x.png"];
             break;
-        case BaseState::State::O:
+        case State::O:
             texture = textureMap["o.png"];
             break;
         default:
@@ -106,14 +106,14 @@ void Renderer::FillCell(const Cell *cell) {
 
 void Renderer::FillField(const Field *field) {
     Texture2D texture;
-    switch (field->GetWinner()) {
-        case ExtendedState::Winner::X:
+    switch (field->GetState()) {
+        case State::X:
             texture = textureMap["x_white.png"];
             break;
-        case ExtendedState::Winner::O:
+        case State::O:
             texture = textureMap["o_white.png"];
             break;
-        case ExtendedState::Winner::TIE:
+        case State::TIE:
             texture = textureMap["tie.png"];
             break;
         default:

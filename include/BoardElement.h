@@ -5,13 +5,11 @@
  * Enum class that represents the state of a cell\n
  * Can't use actual enum here because you can't inherit from an enum :/
  */
-class BaseState {
-public:
-    enum class State {
-        EMPTY,      ///< cell is empty
-        X,          ///< cell is set by X
-        O           ///< cell is set by O
-    };
+enum class State {
+    EMPTY,      ///< cell is empty or field has empty cell
+    X,          ///< cell is set by X or field is won by X
+    O,          ///< cell is set by O or field is won by O
+    TIE         ///< field is a tie
 };
 
 class BoardElement {
@@ -38,11 +36,17 @@ public:
      * Getter of the state
      * @return copy of "state"
      */
-    [[nodiscard]] BaseState::State GetState() const;
+    [[nodiscard]] State GetState() const;
+
+    /**
+     * Setter of the state
+     * @param newState
+     */
+    void SetState(State newState);
 
 protected:
     int x, y;
-    BaseState::State state;
+    State state;
 };
 
 #endif

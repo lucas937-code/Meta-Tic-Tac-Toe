@@ -1,10 +1,6 @@
 #include <stdexcept>
 #include "../include/Winnable.h"
 
-ExtendedState::Winner Winnable::GetWinner() const {
-    return winner;
-}
-
 std::vector<std::vector<BoardElement *>> &Winnable::GetElements() {
     return elements;
 }
@@ -22,27 +18,29 @@ BoardElement *Winnable::GetElementByPosition(std::pair<int, int> &position) {
     throw std::invalid_argument("Given position does not exist");
 }
 
-ExtendedState::Winner Winnable::CheckWin() {
+State Winnable::CheckWin() {
     bool isDraw = true;
 
     for (int i = 0; i < elements.size(); i++) {
         // check rows
         if (elements[i][0]->GetState() == elements[i][1]->GetState() &&
             elements[i][0]->GetState() == elements[i][2]->GetState() &&
-            elements[i][0]->GetState() != BaseState::State::EMPTY) {
-            return elements[i][0]->GetState() == BaseState::State::X ? ExtendedState::Winner::X : ExtendedState::Winner::O;
+            elements[i][0]->GetState() != State::EMPTY &&
+            elements[i][0]->GetState() != State::TIE) {
+            return elements[i][0]->GetState() == State::X ? State::X : State::O;
         }
 
         // check columns
         if (elements[0][i]->GetState() == elements[1][i]->GetState() &&
             elements[0][i]->GetState() == elements[2][i]->GetState() &&
-            elements[0][i]->GetState() != BaseState::State::EMPTY) {
-            return elements[0][i]->GetState() == BaseState::State::X ? ExtendedState::Winner::X : ExtendedState::Winner::O;
+            elements[0][i]->GetState() != State::EMPTY &&
+            elements[0][i]->GetState() != State::TIE) {
+            return elements[0][i]->GetState() == State::X ? State::X : State::O;
         }
 
         // no draw if there is an empty field left
         for (int j = 0; j < elements.size(); j++) {
-            if (elements[i][j]->GetState() == BaseState::State::EMPTY) {
+            if (elements[i][j]->GetState() == State::EMPTY) {
                 isDraw = false;
                 break;
             }
@@ -52,16 +50,18 @@ ExtendedState::Winner Winnable::CheckWin() {
     // check diagonal (top left -> bottom right)
     if (elements[0][0]->GetState() == elements[1][1]->GetState() &&
         elements[0][0]->GetState() == elements[2][2]->GetState() &&
-        elements[0][0]->GetState() != BaseState::State::EMPTY) {
-        return elements[0][0]->GetState() == BaseState::State::X ? ExtendedState::Winner::X : ExtendedState::Winner::O;
+        elements[0][0]->GetState() != State::EMPTY &&
+        elements[0][0]->GetState() != State::TIE) {
+        return elements[0][0]->GetState() == State::X ? State::X : State::O;
     }
 
     // check diagonal (top right -> bottom left)
     if (elements[0][2]->GetState() == elements[1][1]->GetState() &&
         elements[0][2]->GetState() == elements[2][0]->GetState() &&
-        elements[0][2]->GetState() != BaseState::State::EMPTY) {
-        return elements[0][2]->GetState() == BaseState::State::X ? ExtendedState::Winner::X : ExtendedState::Winner::O;
+        elements[0][2]->GetState() != State::EMPTY &&
+        elements[0][2]->GetState() != State::EMPTY) {
+        return elements[0][2]->GetState() == State::X ? State::X : State::O;
     }
 
-    return winner = isDraw ? ExtendedState::Winner::TIE : ExtendedState::Winner::NOT_SET;
+    return isDraw ? State::TIE : State::EMPTY;
 }

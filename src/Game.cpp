@@ -57,7 +57,11 @@ void Game::Run() {
         Renderer::MarkTargetField(isXTurn);
         EndDrawing();
 
-        HandleInput();
+        if (HandleInput() == nullptr) continue;
+
+        State winner = this->CheckWin();
+        if (winner == State::EMPTY) continue;
+        Renderer::SetLogMessage(winner == State::X ? "X has won" : winner == State::O ? "O has won" : "Game is a tie");
     }
 }
 
@@ -71,6 +75,7 @@ void Game::Draw() {
     }
 }
 
+// TODO make void
 Field *Game::HandleInput() {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
@@ -79,7 +84,7 @@ Field *Game::HandleInput() {
 
         Field *clickedField = InputHandler::DetermineClickedField(mouseX, mouseY, *this);
         if (clickedField == nullptr) return nullptr;
-        if (clickedField->GetWinner() != ExtendedState::Winner::NOT_SET) {
+        if (clickedField->GetState() != State::EMPTY) {
             Renderer::SetLogMessage("Field is already sealed");
             return nullptr;
         } else if (targetField != nullptr && clickedField != targetField) {
@@ -89,24 +94,26 @@ Field *Game::HandleInput() {
 
         Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, clickedField);
 
-        if (clickedCell == nullptr) return nullptr;
-        if (clickedCell->GetState() != BaseState::State::EMPTY) {
+        if (clickedCell == nullptr) return nullptr;     // shouldn't be possible anyway but safety first
+        if (clickedCell->GetState() != State::EMPTY) {
             Renderer::SetLogMessage("Cell is already taken");
             return nullptr;
         }
 
-        clickedCell->SetState(isXTurn ? BaseState::State::X : BaseState::State::O);
-        Game::NextTurn();
-        SetTargetField(*clickedCell);
-        clickedField->SetWinner(clickedField->CheckWin());
+        clickedCell->SetState(isXTurn ? State::X : State::O);
+        NextTurn();
+        clickedField->SetState(clickedField->CheckWin());
+        targetField = DetermineTargetField(*clickedCell);
         return clickedField;
     }
     return nullptr;
 }
 
-// TODO return target field instead of setting it here already -> change declaration; adjust call; rename; adjust documentation
-void Game::SetTargetField(Cell &cell) {
-    std::pair<int, int> &cellPosition = cell.GetOwner()->GetElementPosition(cell);
+Field *Game::DetermineTargetField(Cell &cell) {
+    Field *ownerField = cell.GetOwner();
+    if (ownerField == nullptr || ownerField->GetState() != State::EMPTY) return nullptr;
+
+    std::pair<int, int> &cellPosition = ownerField->GetElementPosition(cell);
     auto *field = dynamic_cast<Field *>(GetElementByPosition(cellPosition));
-    targetField = field->GetWinner() == ExtendedState::Winner::NOT_SET ? field : nullptr;
+    return field->GetState() == State::EMPTY ? field : nullptr;
 }

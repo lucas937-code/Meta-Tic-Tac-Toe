@@ -25,12 +25,6 @@ public:
      */
     [[nodiscard]] Field *GetOwner();
 
-    /**
-     * Setter of the field "state"
-     * @param newState
-     */
-    void SetState(BaseState::State newState);
-
 private:
     Field *owner;
 };
