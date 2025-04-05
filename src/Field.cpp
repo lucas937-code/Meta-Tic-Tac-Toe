@@ -8,28 +8,23 @@ Field::Field(int x, int y) : BoardElement(x, y) {
     elements = std::vector<std::vector<BoardElement *>>(Constants::FIELD_AMOUNT,
                                                         std::vector<BoardElement *>(Constants::FIELD_AMOUNT, nullptr));
 
-    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
-        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
-            elements[row][col] = new Cell(x + col * Constants::CELL_SIZE, y + row * Constants::CELL_SIZE, this);
-            elementMap[elements[row][col]] = {row, col};
-        }
-    }
+    forEachElement([&](int row, int col, BoardElement *&element) {
+        element = new Cell(x + col * Constants::CELL_SIZE, y + row * Constants::CELL_SIZE, this);
+        elementMap[element] = {row, col};
+    });
 }
 
 Field::~Field() {
-    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
-        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
-            delete elements[row][col];
-        }
-    }
+    forEachElement([](int row, int col, BoardElement *&element) {
+        delete element;
+        element = nullptr;
+    });
 }
 
-void Field::Draw() const {
-    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
-        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
-            Renderer::FillCell(dynamic_cast<const Cell *>(elements[row][col]));
-        }
-    }
+void Field::Draw() {
+    forEachElement([](int row, int col, BoardElement *&element) {
+        Renderer::FillCell(dynamic_cast<const Cell *>(element));
+    });
 }
 
 int Field::GetSize() {

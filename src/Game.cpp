@@ -21,21 +21,18 @@ Game::Game() : Winnable() {
     elements = std::vector<std::vector<BoardElement *>>(Constants::FIELD_AMOUNT,
                                                         std::vector<BoardElement *>(Constants::FIELD_AMOUNT, nullptr));
 
-    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
-        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
-            elements[row][col] = new Field(Constants::OFFSET + col * Constants::FIELD_SIZE,
-                                           Constants::OFFSET + row * Constants::FIELD_SIZE);
-            elementMap[elements[row][col]] = {row, col};
-        }
-    }
+    forEachElement([&](int row, int col, BoardElement *&element) {
+        element = new Field(Constants::OFFSET + col * Constants::FIELD_SIZE,
+                            Constants::OFFSET + row * Constants::FIELD_SIZE);
+        elementMap[element] = {row, col};
+    });
 }
 
 Game::~Game() {
-    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
-        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
-            delete elements[row][col];
-        }
-    }
+    forEachElement([](int row, int col, BoardElement *&element) {
+        delete element;
+        element = nullptr;
+    });
     Renderer::UnloadTextures();
     CloseWindow();
 }
@@ -73,13 +70,11 @@ void Game::Run() {
 }
 
 void Game::Draw() {
-    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
-        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
-            auto *field = dynamic_cast<Field *>(elements[row][col]);
-            field->Draw();
-            Renderer::FillField(dynamic_cast<const Field *>(elements[row][col]));
-        }
-    }
+    forEachElement([](int row, int col, BoardElement *&element) {
+        auto *field = dynamic_cast<Field *>(element);
+        field->Draw();
+        Renderer::FillField(dynamic_cast<const Field *>(element));
+    });
 }
 
 Field *Game::HandleInput() {

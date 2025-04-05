@@ -64,3 +64,11 @@ State Winnable::CheckWin() {
 
     return isDraw ? State::TIE : State::EMPTY;
 }
+
+void Winnable::forEachElement(const std::function<void(int row, int col, BoardElement *&element)> &function) {
+    for (int row = 0; row < static_cast<int>(elements.size()); ++row) {
+        for (int col = 0; col < static_cast<int>(elements[row].size()); ++col) {
+            function(row, col, elements[row][col]);
+        }
+    }
+}

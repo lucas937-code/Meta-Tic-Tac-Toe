@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <vector>
+#include <functional>
 #include "BoardElement.h"
 
 class Winnable {
@@ -31,6 +32,12 @@ public:
      * @return winner of the winnable as a state
      */
     State CheckWin();
+
+    /**
+     * Executes the passed lambda function for every element in the element matrix
+     * @param function lambda function that is to be executed
+     */
+    void forEachElement(const std::function<void(int row, int col, BoardElement *&element)> &function);
 
 protected:
     std::vector<std::vector<BoardElement *>> elements;

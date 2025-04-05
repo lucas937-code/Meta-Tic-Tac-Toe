@@ -24,7 +24,7 @@ public:
     /**
      * Getter for the target field (field that must be played on next)
      */
-     [[nodiscard]] static Field *GetTargetField();
+    [[nodiscard]] static Field *GetTargetField();
 
     /// Negates "isXTurn" and updates the log message
     static void NextTurn();

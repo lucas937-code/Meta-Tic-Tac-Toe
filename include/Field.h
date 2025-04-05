@@ -19,10 +19,10 @@ public:
     Field(int x, int y);
 
     /// Deletes all the cells the field contains
-    ~Field();
+    ~Field() override;
 
     /// Draws cells of the field
-    void Draw() const;
+    void Draw();
 
     /// @return size of the field
     [[nodiscard]] int GetSize() override;

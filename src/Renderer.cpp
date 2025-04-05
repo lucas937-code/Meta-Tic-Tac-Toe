@@ -68,13 +68,13 @@ void Renderer::ShowLogMessage() {
 
 void Renderer::LoadTextures() {
     std::string dirPath = "../assets";
-    for (const auto &img : std::filesystem::directory_iterator(dirPath)) {
+    for (const auto &img: std::filesystem::directory_iterator(dirPath)) {
         textureMap[img.path().filename().string()] = LoadTexture(img.path().string().c_str());
     }
 }
 
 void Renderer::UnloadTextures() {
-    for (const auto &texture : textureMap) {
+    for (const auto &texture: textureMap) {
         UnloadTexture(texture.second);
     }
 }
