@@ -82,10 +82,10 @@ void Renderer::UnloadTextures() {
 void Renderer::FillCell(const Cell *cell) {
     Texture2D texture;
     switch (cell->GetState()) {
-        case CellState::X:
+        case BaseState::State::X:
             texture = textureMap["x.png"];
             break;
-        case CellState::O:
+        case BaseState::State::O:
             texture = textureMap["o.png"];
             break;
         default:
@@ -104,16 +104,16 @@ void Renderer::FillCell(const Cell *cell) {
     DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
 
-void Renderer::FillField(Field &field) {
+void Renderer::FillField(const Field *field) {
     Texture2D texture;
-    switch (field.GetWinner()) {
-        case Winner::X:
+    switch (field->GetWinner()) {
+        case ExtendedState::Winner::X:
             texture = textureMap["x_white.png"];
             break;
-        case Winner::O:
+        case ExtendedState::Winner::O:
             texture = textureMap["o_white.png"];
             break;
-        case Winner::TIE:
+        case ExtendedState::Winner::TIE:
             texture = textureMap["tie.png"];
             break;
         default:
@@ -123,8 +123,8 @@ void Renderer::FillField(Field &field) {
     Rectangle source = {0, 0,
                         static_cast<float>(texture.width),
                         static_cast<float>(texture.height)};
-    Rectangle dest = {static_cast<float>(field.GetX()),
-                      static_cast<float>(field.GetY()),
+    Rectangle dest = {static_cast<float>(field->GetX()),
+                      static_cast<float>(field->GetY()),
                       static_cast<float>(FIELD_SIZE),
                       static_cast<float>(FIELD_SIZE)};
 

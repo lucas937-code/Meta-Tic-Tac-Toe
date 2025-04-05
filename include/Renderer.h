@@ -2,7 +2,6 @@
 #define METATICTACTOE_RENDERER_H
 
 #include <string>
-#include "Field.h"
 #include "Cell.h"
 #include "raylib.h"
 
@@ -27,10 +26,10 @@ public:
     static void UnloadTextures();
 
     /// Fills the cell with a X or O depending on its state
-    static void FillCell(const Cell* cell);
+    static void FillCell(const Cell *cell);
 
     /// Marks the field according to the winner
-    static void FillField(Field &field);
+    static void FillField(const Field *field);
 
     /// Draws a red rectangle around the target field
     static void MarkTargetField(bool isXTurn);

@@ -1,13 +1,9 @@
 #include "../include/Cell.h"
 
-Cell::Cell() : BoardElement(), state(CellState::EMPTY) {}
+Cell::Cell() : BoardElement() {}
 
-Cell::Cell(int x, int y) : BoardElement(x, y), state(CellState::EMPTY) {}
+Cell::Cell(int x, int y) : BoardElement(x, y) {}
 
-CellState Cell::GetState() const {
-    return state;
-}
-
-void Cell::SetState(CellState newState) {
+void Cell::SetState(BaseState::State newState) {
     state = newState;
 }

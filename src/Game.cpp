@@ -1,4 +1,5 @@
 #include "../include/Game.h"
+#include <iostream>
 #include "../include/Renderer.h"
 #include "../include/InputHandler.h"
 #include "raylib.h"
@@ -6,7 +7,7 @@
 bool Game::isXTurn;
 Field *Game::targetField;
 
-Game::Game() {
+Game::Game() : Winnable() {
     InitWindow(WINDOW_SIZE, WINDOW_SIZE, "Meta TicTacToe");
     SetTargetFPS(60);
 
@@ -17,12 +18,13 @@ Game::Game() {
 
     Renderer::LoadTextures();
 
-    fields = std::vector<std::vector<Field>>(FIELD_AMOUNT, std::vector<Field>(FIELD_AMOUNT, Field(0, 0)));
+    elements = std::vector<std::vector<BoardElement *>>(FIELD_AMOUNT,
+                                                        std::vector<BoardElement *>(FIELD_AMOUNT, nullptr));
 
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
-            fields[row][col] = Field(OFFSET + col * FIELD_SIZE, OFFSET + row * FIELD_SIZE);
-            fieldMap[{row, col}] = &fields[row][col];
+            elements[row][col] = new Field(OFFSET + col * FIELD_SIZE, OFFSET + row * FIELD_SIZE);
+            elementMap[elements[row][col]] = {row, col};
         }
     }
 }
@@ -63,8 +65,8 @@ void Game::Run() {
 void Game::Draw() {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
-            fields[row][col].Draw();
-            Renderer::FillField(fields[row][col]);
+            dynamic_cast<Field *>(elements[row][col])->Draw();
+            Renderer::FillField(dynamic_cast<const Field *>(elements[row][col]));
         }
     }
 }
@@ -75,9 +77,9 @@ Field *Game::HandleInput() {
         const int mouseX = static_cast<int>(mousePos.x);
         const int mouseY = static_cast<int>(mousePos.y);
 
-        Field *clickedField = InputHandler::DetermineClickedField(mouseX, mouseY, fields);
+        Field *clickedField = InputHandler::DetermineClickedField(mouseX, mouseY, *this);
         if (clickedField == nullptr) return nullptr;
-        if (clickedField->GetWinner() != Winner::NOT_SET) {
+        if (clickedField->GetWinner() != ExtendedState::Winner::NOT_SET) {
             Renderer::SetLogMessage("Field is already sealed");
             return nullptr;
         } else if (targetField != nullptr && clickedField != targetField) {
@@ -89,13 +91,13 @@ Field *Game::HandleInput() {
 
         if (clickedCell == nullptr) return nullptr;
 
-        if (clickedCell->GetState() != CellState::EMPTY) {
+        if (clickedCell->GetState() != BaseState::State::EMPTY) {
             Renderer::SetLogMessage("Cell is already taken");
         } else {
-            clickedCell->SetState(isXTurn ? CellState::X : CellState::O);
+            clickedCell->SetState(isXTurn ? BaseState::State::X : BaseState::State::O);
             Game::NextTurn();
             SetTargetField(*clickedCell);
-            if (clickedField->CheckWin() != Winner::NOT_SET) {
+            if (clickedField->CheckWin() != ExtendedState::Winner::NOT_SET) {
                 targetField = nullptr;
             }
             return clickedField;
@@ -104,8 +106,17 @@ Field *Game::HandleInput() {
     return nullptr;
 }
 
+/*void Game::SetTargetField(Cell &cell) {
+    std::pair<int, int> &cellPosition = GetElementPosition(cell);
+    auto field = dynamic_cast<Field *>(GetElementByPosition(cellPosition));
+    targetField = field->GetWinner() == ExtendedState::Winner::NOT_SET ? field : nullptr;
+    delete field;
+}*/
+
 void Game::SetTargetField(Cell &cell) {
-    std::pair<int, int> &cellPosition = Field::GetCellPosition(cell);
-    Field &field = *fieldMap[cellPosition];
-    targetField = field.GetWinner() == Winner::NOT_SET ? &field : nullptr;
+    std::pair<int, int> &cellPosition = GetElementPosition(cell);
+    BoardElement *field = GetElementByPosition(cellPosition);
+    std::cout << "Returned type: " << typeid(*field).name() << std::endl;
+    targetField = dynamic_cast<Field *>(field->GetState() == BaseState::State::EMPTY ? field : nullptr);
+    delete field;
 }
