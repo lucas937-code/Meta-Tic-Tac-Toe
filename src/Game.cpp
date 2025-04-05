@@ -91,32 +91,24 @@ Field *Game::HandleInput() {
         Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, clickedField);
 
         if (clickedCell == nullptr) return nullptr;
-
         if (clickedCell->GetState() != BaseState::State::EMPTY) {
             Renderer::SetLogMessage("Cell is already taken");
-        } else {
-            clickedCell->SetState(isXTurn ? BaseState::State::X : BaseState::State::O);
-            Game::NextTurn();
-            SetTargetField(*clickedCell);
-            if (clickedField->CheckWin() != ExtendedState::Winner::NOT_SET) {
-                targetField = nullptr;
-            }
-            return clickedField;
+            return nullptr;
         }
+
+        clickedCell->SetState(isXTurn ? BaseState::State::X : BaseState::State::O);
+        Game::NextTurn();
+        SetTargetField(*clickedCell);
+        clickedField->SetWinner(clickedField->CheckWin());
+        std::cout << "Winner is " << std::string(winner == ExtendedState::Winner::X ? "X" : "O") << std::endl;
+        return clickedField;
     }
     return nullptr;
 }
 
-/*void Game::SetTargetField(Cell &cell) {
-    std::pair<int, int> &cellPosition = GetElementPosition(cell);
-    auto field = dynamic_cast<Field *>(GetElementByPosition(cellPosition));
-    targetField = field->GetWinner() == ExtendedState::Winner::NOT_SET ? field : nullptr;
-    delete field;
-}*/
-
+// TODO return target field instead of setting it here already -> change declaration; adjust call; rename; adjust documentation
 void Game::SetTargetField(Cell &cell) {
     std::pair<int, int> &cellPosition = cell.GetOwner()->GetElementPosition(cell);
-    BoardElement *field = GetElementByPosition(cellPosition);
-    std::cout << "Returned type: " << typeid(*field).name() << std::endl;
-    targetField = dynamic_cast<Field *>(field->GetState() == BaseState::State::EMPTY ? field : nullptr);
+    auto *field = dynamic_cast<Field *>(GetElementByPosition(cellPosition));
+    targetField = field->GetWinner() == ExtendedState::Winner::NOT_SET ? field : nullptr;
 }

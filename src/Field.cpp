@@ -22,3 +22,7 @@ void Field::Draw() const {
         }
     }
 }
+
+void Field::SetWinner(ExtendedState::Winner winner) {
+    this->winner = winner;
+}

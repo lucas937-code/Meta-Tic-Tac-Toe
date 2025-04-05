@@ -19,6 +19,12 @@ public:
 
     /// Draws cells of the field
     void Draw() const;
+
+    /**
+     * Sets the winner of the field
+     * @param winner winner of the field
+     */
+    void SetWinner(ExtendedState::Winner winner);
 };
 
 #endif
