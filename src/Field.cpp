@@ -23,3 +23,7 @@ void Field::Draw() const {
         }
     }
 }
+
+int Field::GetSize() {
+    return Constants::FIELD_SIZE;
+}

@@ -30,6 +30,8 @@ public:
     /// virtual default destructor to make polymorphism possible
     virtual ~BoardElement() = default;
 
+    [[nodiscard]] virtual int GetSize() = 0;
+
     /**
      * Getter of the x coordinate of the element (pixels relative to top left corner of the window)
      * @return copy of "x"

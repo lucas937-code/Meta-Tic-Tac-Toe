@@ -88,7 +88,7 @@ Field *Game::HandleInput() {
         const int mouseX = static_cast<int>(mousePos.x);
         const int mouseY = static_cast<int>(mousePos.y);
 
-        Field *clickedField = InputHandler::DetermineClickedField(mouseX, mouseY, *this);
+        auto *clickedField = dynamic_cast<Field *>(InputHandler::DetermineClickedElement(mouseX, mouseY, *this));
         if (clickedField == nullptr) return nullptr;
         if (clickedField->GetState() != State::EMPTY) {
             Renderer::SetLogMessage("Field is already sealed");
@@ -98,7 +98,7 @@ Field *Game::HandleInput() {
             return nullptr;
         }
 
-        Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, *clickedField);
+        auto clickedCell = dynamic_cast<Cell *>(InputHandler::DetermineClickedElement(mouseX, mouseY, *clickedField));
 
         if (clickedCell == nullptr) return nullptr;     // shouldn't be possible anyway but safety first
         if (clickedCell->GetState() != State::EMPTY) {

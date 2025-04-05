@@ -25,6 +25,8 @@ public:
      */
     [[nodiscard]] Field *GetOwner();
 
+    [[nodiscard]] int GetSize() override;
+
 private:
     Field *owner;
 };

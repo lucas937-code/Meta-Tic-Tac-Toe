@@ -20,6 +20,9 @@ public:
 
     /// Draws cells of the field
     void Draw() const;
+
+    /// @return size of the field
+    [[nodiscard]] int GetSize() override;
 };
 
 #endif
