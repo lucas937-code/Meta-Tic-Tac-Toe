@@ -18,6 +18,9 @@ public:
      */
     Field(int x, int y);
 
+    /// Deletes all the cells the field contains
+    ~Field();
+
     /// Draws cells of the field
     void Draw() const;
 

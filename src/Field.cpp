@@ -16,6 +16,14 @@ Field::Field(int x, int y) : BoardElement(x, y) {
     }
 }
 
+Field::~Field() {
+    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
+        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
+            delete elements[row][col];
+        }
+    }
+}
+
 void Field::Draw() const {
     for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
         for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
