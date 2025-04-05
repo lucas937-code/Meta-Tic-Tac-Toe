@@ -1,4 +1,5 @@
 #include "../include/Game.h"
+#include "../include/Constants.h"
 #include "../include/Renderer.h"
 #include "../include/InputHandler.h"
 #include "raylib.h"
@@ -7,7 +8,7 @@ bool Game::isXTurn;
 Field *Game::targetField;
 
 Game::Game() : Winnable() {
-    InitWindow(WINDOW_SIZE, WINDOW_SIZE, "Meta TicTacToe");
+    InitWindow(Constants::WINDOW_SIZE, Constants::WINDOW_SIZE, "Meta TicTacToe");
     SetTargetFPS(60);
 
     isRunning = IsWindowReady();
@@ -17,18 +18,24 @@ Game::Game() : Winnable() {
 
     Renderer::LoadTextures();
 
-    elements = std::vector<std::vector<BoardElement *>>(FIELD_AMOUNT,
-                                                        std::vector<BoardElement *>(FIELD_AMOUNT, nullptr));
+    elements = std::vector<std::vector<BoardElement *>>(Constants::FIELD_AMOUNT,
+                                                        std::vector<BoardElement *>(Constants::FIELD_AMOUNT, nullptr));
 
-    for (int row = 0; row < FIELD_AMOUNT; row++) {
-        for (int col = 0; col < FIELD_AMOUNT; col++) {
-            elements[row][col] = new Field(OFFSET + col * FIELD_SIZE, OFFSET + row * FIELD_SIZE);
+    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
+        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
+            elements[row][col] = new Field(Constants::OFFSET + col * Constants::FIELD_SIZE,
+                                           Constants::OFFSET + row * Constants::FIELD_SIZE);
             elementMap[elements[row][col]] = {row, col};
         }
     }
 }
 
 Game::~Game() {
+    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
+        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
+            delete elements[row][col];
+        }
+    }
     Renderer::UnloadTextures();
     CloseWindow();
 }
@@ -66,8 +73,8 @@ void Game::Run() {
 }
 
 void Game::Draw() {
-    for (int row = 0; row < FIELD_AMOUNT; row++) {
-        for (int col = 0; col < FIELD_AMOUNT; col++) {
+    for (int row = 0; row < Constants::FIELD_AMOUNT; row++) {
+        for (int col = 0; col < Constants::FIELD_AMOUNT; col++) {
             auto *field = dynamic_cast<Field *>(elements[row][col]);
             field->Draw();
             Renderer::FillField(dynamic_cast<const Field *>(elements[row][col]));
@@ -75,7 +82,6 @@ void Game::Draw() {
     }
 }
 
-// TODO make void
 Field *Game::HandleInput() {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
@@ -92,7 +98,7 @@ Field *Game::HandleInput() {
             return nullptr;
         }
 
-        Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, clickedField);
+        Cell *clickedCell = InputHandler::DetermineClickedCell(mouseX, mouseY, *clickedField);
 
         if (clickedCell == nullptr) return nullptr;     // shouldn't be possible anyway but safety first
         if (clickedCell->GetState() != State::EMPTY) {

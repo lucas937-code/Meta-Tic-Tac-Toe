@@ -1,8 +1,8 @@
 #include "../include/Renderer.h"
 #include "raylib.h"
+#include "../include/Constants.h"
 #include "../include/Game.h"
 #include <filesystem>
-#include <utility>
 
 const int thickLineWidth = 7;
 const int thinLineWidth = 1;
@@ -15,55 +15,55 @@ void Renderer::SetLogMessage(std::string msg) {
 }
 
 void Renderer::DrawBoard() {
-    ClearBackground(CUSTOM_BG);
+    ClearBackground(Constants::CUSTOM_BG);
 
     // draw square around the board
-    DrawRectangleLinesEx({(float) OFFSET,
-                          (float) OFFSET,
-                          (float) BOARD_SIZE,
-                          (float) BOARD_SIZE},
+    DrawRectangleLinesEx({(float) Constants::OFFSET,
+                          (float) Constants::OFFSET,
+                          (float) Constants::BOARD_SIZE,
+                          (float) Constants::BOARD_SIZE},
                          thickLineWidth,
                          WHITE);
 
 
     // draw thick lines for the meta field
-    for (int i = 1; i < FIELD_AMOUNT; i++) {
-        int pos = i * FIELD_AMOUNT * CELL_SIZE + OFFSET;
+    for (int i = 1; i < Constants::FIELD_AMOUNT; i++) {
+        int pos = i * Constants::FIELD_AMOUNT * Constants::CELL_SIZE + Constants::OFFSET;
 
         // draw vertical lines
-        DrawLineEx({(float) pos, (float) OFFSET},
-                   {(float) pos, (float) (BOARD_SIZE + OFFSET)},
+        DrawLineEx({(float) pos, (float) Constants::OFFSET},
+                   {(float) pos, (float) (Constants::BOARD_SIZE + Constants::OFFSET)},
                    thickLineWidth,
                    WHITE);
         // draw horizontal lines
-        DrawLineEx({(float) OFFSET, (float) pos},
-                   {(float) (BOARD_SIZE + OFFSET), (float) pos},
+        DrawLineEx({(float) Constants::OFFSET, (float) pos},
+                   {(float) (Constants::BOARD_SIZE + Constants::OFFSET), (float) pos},
                    thickLineWidth,
                    WHITE);
     }
 
     // draw thin lines for small fields
-    for (int i = 1; i < FIELD_AMOUNT * FIELD_AMOUNT; i++) {
+    for (int i = 1; i < Constants::FIELD_AMOUNT * Constants::FIELD_AMOUNT; i++) {
         // skip positions for thick lines
-        if (i % FIELD_AMOUNT == 0) continue;
+        if (i % Constants::FIELD_AMOUNT == 0) continue;
 
-        int pos = i * CELL_SIZE + OFFSET;
+        int pos = i * Constants::CELL_SIZE + Constants::OFFSET;
 
         // Vertikale Linien für kleine Felder
-        DrawLineEx({(float) pos, (float) OFFSET},
-                   {(float) pos, (float) (BOARD_SIZE + OFFSET)},
+        DrawLineEx({(float) pos, (float) Constants::OFFSET},
+                   {(float) pos, (float) (Constants::BOARD_SIZE + Constants::OFFSET)},
                    thinLineWidth,
                    WHITE);
         // draw horizontal lines
-        DrawLineEx({(float) OFFSET, (float) pos},
-                   {(float) (BOARD_SIZE + OFFSET), (float) pos},
+        DrawLineEx({(float) Constants::OFFSET, (float) pos},
+                   {(float) (Constants::BOARD_SIZE + Constants::OFFSET), (float) pos},
                    thinLineWidth,
                    WHITE);
     }
 }
 
 void Renderer::ShowLogMessage() {
-    DrawText(logMessage.c_str(), 30, WINDOW_SIZE - 55, 50, WHITE);
+    DrawText(logMessage.c_str(), 30, Constants::WINDOW_SIZE - 55, 50, WHITE);
 }
 
 void Renderer::LoadTextures() {
@@ -98,8 +98,8 @@ void Renderer::FillCell(const Cell *cell) {
 
     Rectangle dest = {static_cast<float>(cell->GetX()),
                       static_cast<float>(cell->GetY()),
-                      static_cast<float>(CELL_SIZE),
-                      static_cast<float>(CELL_SIZE)};
+                      static_cast<float>(Constants::CELL_SIZE),
+                      static_cast<float>(Constants::CELL_SIZE)};
 
     DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
@@ -125,8 +125,8 @@ void Renderer::FillField(const Field *field) {
                         static_cast<float>(texture.height)};
     Rectangle dest = {static_cast<float>(field->GetX()),
                       static_cast<float>(field->GetY()),
-                      static_cast<float>(FIELD_SIZE),
-                      static_cast<float>(FIELD_SIZE)};
+                      static_cast<float>(Constants::FIELD_SIZE),
+                      static_cast<float>(Constants::FIELD_SIZE)};
 
     DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
@@ -137,7 +137,7 @@ void Renderer::MarkTargetField(bool isXTurn) {
 
     auto x = static_cast<float>(field->GetX());
     auto y = static_cast<float>(field->GetY());
-    auto size = static_cast<float>(FIELD_SIZE);
-    Color color = isXTurn ? CUSTOM_RED : CUSTOM_BLUE;
+    auto size = static_cast<float>(Constants::FIELD_SIZE);
+    Color color = isXTurn ? Constants::CUSTOM_RED : Constants::CUSTOM_BLUE;
     DrawRectangleLinesEx({x, y, size, size}, thickLineWidth, color);
 }

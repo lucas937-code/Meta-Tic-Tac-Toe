@@ -10,11 +10,17 @@ public:
      * @param mouseX x coordinate of the mouse
      * @param mouseY y coordinate of the mouse
      * @param clickedField the field that was clicked on
-     * @param isXTurn whose turn it is now
      * @return pointer to the clicked cell or nullptr if clicked outside the board
      */
-    static Cell *DetermineClickedCell(int mouseX, int mouseY, Field *clickedField);
+    static Cell *DetermineClickedCell(int mouseX, int mouseY, Field &clickedField);
 
+    /**
+     * Determines which field was clicked on
+     * @param mouseX x coordinate of the mouse
+     * @param mouseY y coordinate of the mouse
+     * @param game the current game which contains the fields
+     * @return pointer to the clicked field or nullptr if clicked outside the board
+     */
     static Field *DetermineClickedField(int mouseX, int mouseY, Game &game);
 };
 

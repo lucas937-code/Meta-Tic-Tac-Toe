@@ -2,11 +2,10 @@
 #define METATICTACTOE_BOARDELEMENT_H
 
 /**
- * Enum class that represents the state of a cell\n
- * Can't use actual enum here because you can't inherit from an enum :/
+ * Enum class that represents the state of a BoardElement\n
  */
 enum class State {
-    EMPTY,      ///< cell is empty or field has empty cell
+    EMPTY,      ///< cell is empty or field has one or more empty cells
     X,          ///< cell is set by X or field is won by X
     O,          ///< cell is set by O or field is won by O
     TIE         ///< field is a tie
@@ -14,10 +13,21 @@ enum class State {
 
 class BoardElement {
 public:
+    /**
+     * Default constructor\n
+     * Initializes x & y as 0 and state as EMPTY
+     */
     BoardElement();
 
+    /**
+     * Constructor with given x & y\n
+     * Initializes state as EMPTY
+     * @param x x coordinate of the element (pixels relative to top left corner of the window)
+     * @param y y coordinate of the element (pixels relative to top left corner of the window)
+     */
     BoardElement(int x, int y);
 
+    /// virtual default destructor to make polymorphism possible
     virtual ~BoardElement() = default;
 
     /**
@@ -40,7 +50,7 @@ public:
 
     /**
      * Setter of the state
-     * @param newState
+     * @param newState new state of the element
      */
     void SetState(State newState);
 

@@ -6,7 +6,8 @@
 
 /**
  * Represents one of the 9 fields of the whole board\n
- * contains 9 cells
+ * Contains 9 cells\n
+ * Inherits from BoardElement and Winnable
  */
 class Field : public BoardElement, public Winnable {
 public:

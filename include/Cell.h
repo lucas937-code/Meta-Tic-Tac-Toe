@@ -5,15 +5,15 @@
 #include "Field.h"
 
 /**
- * Represents one cell of the a field and is the smallest unit on the board
+ * Represents one cell of a field and is the smallest unit of the board
  */
 class Cell : public BoardElement {
 public:
-    /// Initializes fields with standard values
+    /// Initializes a Cell with standard values
     Cell();
 
     /**
-     * Initializes fields with given values
+     * Initializes a Cell with given values
      * @param x x coordinate of the cell (pixels relative to top left corner of the window)
      * @param y y coordinate of the cell (pixels relative to top left corner of the window)
      */

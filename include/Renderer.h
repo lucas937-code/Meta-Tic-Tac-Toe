@@ -25,7 +25,7 @@ public:
     /// Unloads the textures for the pictures
     static void UnloadTextures();
 
-    /// Fills the cell with a X or O depending on its state
+    /// Fills the cell with an X or O depending on its state
     static void FillCell(const Cell *cell);
 
     /// Marks the field according to the winner

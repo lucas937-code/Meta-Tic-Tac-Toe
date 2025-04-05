@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include "../include/Winnable.h"
 
 std::vector<std::vector<BoardElement *>> &Winnable::GetElements() {
@@ -15,7 +14,7 @@ BoardElement *Winnable::GetElementByPosition(std::pair<int, int> &position) {
             return it.first;
         }
     }
-    throw std::invalid_argument("Given position does not exist");
+    return nullptr;
 }
 
 State Winnable::CheckWin() {
