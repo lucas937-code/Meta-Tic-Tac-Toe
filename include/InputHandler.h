@@ -1,7 +1,6 @@
 #ifndef METATICTACTOE_INPUTHANDLER_H
 #define METATICTACTOE_INPUTHANDLER_H
 
-#include "Field.h"
 #include "Game.h"
 
 class InputHandler {
@@ -16,7 +15,7 @@ public:
      */
     static Cell *DetermineClickedCell(int mouseX, int mouseY, Field *clickedField);
 
-    static Field *DetermineClickedField(int mouseX, int mouseY, std::vector<std::vector<Field>> &fields);
+    static Field *DetermineClickedField(int mouseX, int mouseY, Game &game);
 };
 
 #endif

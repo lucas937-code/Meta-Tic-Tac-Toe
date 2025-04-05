@@ -1,13 +1,9 @@
 #include "../include/Cell.h"
 
-Cell::Cell() : BoardElement(), state(CellState::EMPTY) {}
+Cell::Cell() : BoardElement(), owner(nullptr) {}
 
-Cell::Cell(int x, int y) : BoardElement(x, y), state(CellState::EMPTY) {}
+Cell::Cell(int x, int y, Field *owner) : BoardElement(x, y), owner(owner) {}
 
-CellState Cell::GetState() const {
-    return state;
-}
-
-void Cell::SetState(CellState newState) {
-    state = newState;
+Field *Cell::GetOwner() {
+    return owner;
 }
