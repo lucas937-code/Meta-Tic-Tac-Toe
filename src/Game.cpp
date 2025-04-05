@@ -65,7 +65,8 @@ void Game::Run() {
 void Game::Draw() {
     for (int row = 0; row < FIELD_AMOUNT; row++) {
         for (int col = 0; col < FIELD_AMOUNT; col++) {
-            dynamic_cast<Field *>(elements[row][col])->Draw();
+            auto *field = dynamic_cast<Field *>(elements[row][col]);
+            field->Draw();
             Renderer::FillField(dynamic_cast<const Field *>(elements[row][col]));
         }
     }
@@ -114,9 +115,8 @@ Field *Game::HandleInput() {
 }*/
 
 void Game::SetTargetField(Cell &cell) {
-    std::pair<int, int> &cellPosition = GetElementPosition(cell);
+    std::pair<int, int> &cellPosition = cell.GetOwner()->GetElementPosition(cell);
     BoardElement *field = GetElementByPosition(cellPosition);
     std::cout << "Returned type: " << typeid(*field).name() << std::endl;
     targetField = dynamic_cast<Field *>(field->GetState() == BaseState::State::EMPTY ? field : nullptr);
-    delete field;
 }

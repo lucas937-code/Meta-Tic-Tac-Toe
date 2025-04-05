@@ -17,13 +17,22 @@ public:
      * @param x x coordinate of the cell (pixels relative to top left corner of the window)
      * @param y y coordinate of the cell (pixels relative to top left corner of the window)
      */
-    Cell(int x, int y);
+    Cell(int x, int y, Field *owner);
+
+    /**
+     * Getter of the owner field of the cell
+     * @return pointer to the field that the cell belongs to
+     */
+    [[nodiscard]] Field *GetOwner();
 
     /**
      * Setter of the field "state"
      * @param newState
      */
     void SetState(BaseState::State newState);
+
+private:
+    Field *owner;
 };
 
 #endif
