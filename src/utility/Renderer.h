@@ -2,7 +2,7 @@
 #define METATICTACTOE_RENDERER_H
 
 #include <string>
-#include "Cell.h"
+#include "../core/Cell.h"
 #include "raylib.h"
 
 /**

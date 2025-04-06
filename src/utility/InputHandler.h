@@ -1,7 +1,7 @@
 #ifndef METATICTACTOE_INPUTHANDLER_H
 #define METATICTACTOE_INPUTHANDLER_H
 
-#include "Game.h"
+#include "../core/Game.h"
 
 /// Contains utility functions for handling user inputs
 class InputHandler {

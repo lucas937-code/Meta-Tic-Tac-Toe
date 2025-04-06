@@ -1,7 +1,7 @@
-#include "../include/Renderer.h"
+#include "Renderer.h"
 #include "raylib.h"
-#include "../include/Constants.h"
-#include "../include/Game.h"
+#include "../core/Constants.h"
+#include "../core/Game.h"
 #include <filesystem>
 
 const int thickLineWidth = 7;

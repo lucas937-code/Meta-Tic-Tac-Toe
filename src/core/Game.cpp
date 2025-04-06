@@ -1,7 +1,7 @@
-#include "../include/Game.h"
-#include "../include/Constants.h"
-#include "../include/Renderer.h"
-#include "../include/InputHandler.h"
+#include "Game.h"
+#include "Constants.h"
+#include "../utility/Renderer.h"
+#include "../utility/InputHandler.h"
 #include "raylib.h"
 
 bool Game::isXTurn;

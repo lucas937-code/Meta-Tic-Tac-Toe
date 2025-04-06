@@ -1,6 +1,6 @@
 #include <iostream>
-#include "include/Game.h"
-#include "include/WindowManager.h"
+#include "src/core/Game.h"
+#include "src/utility/WindowManager.h"
 
 #include <memory>
 

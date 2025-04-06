@@ -1,4 +1,4 @@
-#include "../include/InputHandler.h"
+#include "InputHandler.h"
 
 BoardElement *InputHandler::DetermineClickedElement(int mouseX, int mouseY, Winnable &winnable) {
     BoardElement *boardElement = nullptr;

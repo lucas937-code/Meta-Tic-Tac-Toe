@@ -1,7 +1,7 @@
 #ifndef METATICTACTOE_WINDOWMANAGER_H
 #define METATICTACTOE_WINDOWMANAGER_H
 
-#include "Game.h"
+#include "../core/Game.h"
 
 /// Contains utility functions for managing the main window
 class WindowManager {

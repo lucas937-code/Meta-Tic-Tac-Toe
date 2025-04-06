@@ -1,4 +1,4 @@
-#include "../include/Winnable.h"
+#include "Winnable.h"
 
 std::pair<int, int> &Winnable::GetElementPosition(BoardElement &element) {
     return elementMap[&element];

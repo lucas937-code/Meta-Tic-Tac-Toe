@@ -10,22 +10,22 @@ include_directories(${RAYLIB_DIR}/include)
 link_directories(${RAYLIB_DIR}/lib)
 
 add_executable(MetaTicTacToe main.cpp
-        include/Game.h
-        include/Field.h
-        include/Cell.h
-        include/Renderer.h
-        include/InputHandler.h
-        src/Game.cpp
-        src/Renderer.cpp
-        src/Cell.cpp
-        src/Field.cpp
-        src/InputHandler.cpp
-        include/BoardElement.h
-        src/BoardElement.cpp
-        include/Winnable.h
-        src/Winnable.cpp
-        include/Constants.h
-        include/WindowManager.h
-        src/WindowManager.cpp)
+        src/core/Game.h
+        src/core/Field.h
+        src/core/Cell.h
+        src/utility/Renderer.h
+        src/utility/InputHandler.h
+        src/core/Game.cpp
+        src/utility/Renderer.cpp
+        src/core/Cell.cpp
+        src/core/Field.cpp
+        src/utility/InputHandler.cpp
+        src/core/BoardElement.h
+        src/core/BoardElement.cpp
+        src/core/Winnable.h
+        src/core/Winnable.cpp
+        src/core/Constants.h
+        src/utility/WindowManager.h
+        src/utility/WindowManager.cpp)
 
 target_link_libraries(MetaTicTacToe raylib opengl32 gdi32 winmm)

@@ -38,7 +38,10 @@ public:
     void forEachElement(const std::function<void(int row, int col, BoardElement *&element)> &function);
 
 protected:
+    /// Matrix of board element that the winnable contains
     std::vector<std::vector<BoardElement *>> elements;
+
+    /// Map that assigns every element its position in the matrix< (indicated as (row, col))
     std::unordered_map<BoardElement *, std::pair<int, int>> elementMap;
 };
 

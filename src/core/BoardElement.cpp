@@ -1,4 +1,4 @@
-#include "../include/BoardElement.h"
+#include "BoardElement.h"
 
 BoardElement::BoardElement() : x(0), y(0), state(State::EMPTY) {}
 

@@ -1,6 +1,6 @@
-#include "../include/WindowManager.h"
-#include "../include/Constants.h"
-#include "../include/Renderer.h"
+#include "WindowManager.h"
+#include "../core/Constants.h"
+#include "Renderer.h"
 
 bool WindowManager::InitializeWindow() {
     InitWindow(Constants::WINDOW_SIZE, Constants::WINDOW_SIZE, "Meta TicTacToe");
