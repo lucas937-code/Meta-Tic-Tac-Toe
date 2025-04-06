@@ -3,28 +3,22 @@ project(MetaTicTacToe)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(RAYLIB_DIR "C:/Program Files/raylib")
+# Look for CMake modules in the local cmake/ folder
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
-include_directories(${RAYLIB_DIR}/include)
-link_directories(${RAYLIB_DIR}/lib)
+# Find raylib (requires FindRaylib.cmake in cmake/ folder)
+find_package(raylib REQUIRED)
 
-add_executable(MetaTicTacToe main.cpp
-        src/core/Game.h
-        src/core/Field.h
-        src/core/Cell.h
-        src/utility/Renderer.h
-        src/utility/InputHandler.h
-        src/core/Game.cpp
-        src/utility/Renderer.cpp
-        src/core/Cell.cpp
-        src/core/Field.cpp
-        src/utility/InputHandler.cpp
-        src/core/BoardElement.h
-        src/core/BoardElement.cpp
-        src/core/Winnable.h
-        src/core/Winnable.cpp
-        src/utility/Constants.h
-        src/utility/WindowManager.h
-        src/utility/WindowManager.cpp)
+# Include directories and source files
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+        src/core/*.cpp
+        src/core/*.h
+        src/utility/*.cpp
+        src/utility/*.h
+        main.cpp
+)
 
-target_link_libraries(MetaTicTacToe raylib opengl32 gdi32 winmm)
+add_executable(MetaTicTacToe ${SOURCES})
+
+# Link raylib and required Windows libs
+target_link_libraries(MetaTicTacToe PRIVATE raylib opengl32 gdi32 winmm)
