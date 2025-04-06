@@ -1,6 +1,6 @@
 #pragma once
 
-#include "raylib.h"
+#include <raylib.h>
 
 /// @brief Provides global constants that are useful at various places in the project
 namespace Constants {

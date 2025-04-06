@@ -2,7 +2,7 @@
 #include "../utility/Constants.h"
 #include "../utility/Renderer.h"
 #include "../utility/InputHandler.h"
-#include "raylib.h"
+#include <raylib.h>
 
 bool Game::isXTurn;
 Field *Game::targetField;

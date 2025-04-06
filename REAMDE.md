@@ -48,6 +48,11 @@ in a folder included in your system’s CMAKE_PREFIX_PATH.
 
 Alternatively, set the environment variable RAYLIB_ROOT to the installation path.
 
+If it does not work at all, you can also set the path manually:
+```cmake
+set(RAYLIB_DIR "C:/Program Files/raylib")
+```
+
 ### Prebuilt version
 
 👉 You can also use the [prebuilt version here](./bin/MetaTicTacToe.exe) to try it out directly (Windows only).

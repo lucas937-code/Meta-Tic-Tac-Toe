@@ -3,7 +3,7 @@
 
 #include <string>
 #include "../core/Cell.h"
-#include "raylib.h"
+#include <raylib.h>
 
 /// @brief Class with all static functions that draw the content in the window
 class Renderer {
