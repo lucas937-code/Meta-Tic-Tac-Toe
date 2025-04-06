@@ -13,35 +13,35 @@
 class Winnable {
 public:
     /**
-     * Uses the elementMap to determine the position of the given element
+     * @brief Uses the elementMap to determine the position of the given element
      * @return reference to pair of (row, col)
      */
     std::pair<int, int> &GetElementPosition(BoardElement &element);
 
     /**
-     * Searches the elementMap for a BoardElement with the given position
+     * @brief Searches the elementMap for a BoardElement with the given position
      * @param position reference to the position in the element matrix (row, col)
-     * @return pointer to the corresponding BoardElement or nullptr if there is no element at that position
+     * @return pointer to the corresponding BoardElement or nullptr if there is no element at the given position
      */
     BoardElement *GetElementByPosition(std::pair<int, int> &position);
 
     /**
-     * Determines if a player has won
+     * @brief Determines if a player has won
      * @return winner of the winnable as a state
      */
     State CheckWin();
 
     /**
-     * Executes the passed lambda function for every element in the element matrix
+     * @brief Executes the passed lambda function for every element in the element matrix
      * @param function lambda function that is to be executed
      */
     void forEachElement(const std::function<void(int row, int col, BoardElement *&element)> &function);
 
 protected:
-    /// Matrix of board element that the winnable contains
+    /// @brief Matrix of board element that the winnable contains
     std::vector<std::vector<BoardElement *>> elements;
 
-    /// Map that assigns every element its position in the matrix< (indicated as (row, col))
+    /// @brief Map that assigns every element its position in the matrix< (indicated as (row, col))
     std::unordered_map<BoardElement *, std::pair<int, int>> elementMap;
 };
 

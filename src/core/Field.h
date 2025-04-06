@@ -12,19 +12,22 @@
 class Field : public BoardElement, public Winnable {
 public:
     /**
-     * Initializes the cells of the field
+     * @brief Initializes the cells of the field
      * @param x x coordinate of the field (pixels relative to top left corner of the window)
      * @param y y coordinate of the field (pixels relative to top left corner of the window)
      */
     Field(int x, int y);
 
-    /// Deletes all the cells the field contains
+    /// @brief Deletes all the cells the field contains
     ~Field() override;
 
-    /// Draws cells of the field
+    /// @brief Draws cells of the field
     void Draw();
 
-    /// @return size of the field
+    /**
+     * @brief Uses the FIELD_SIZE constant from the Constants namespace
+     * @return size of the field in pixels
+     */
     [[nodiscard]] int GetSize() override;
 };
 

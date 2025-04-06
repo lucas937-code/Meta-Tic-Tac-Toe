@@ -9,22 +9,26 @@
  */
 class Cell : public BoardElement {
 public:
-    /// Initializes a Cell with standard values
+    /// @brief Initializes a Cell with default values of the BoardElement default constructor and the owner to nullptr
     Cell();
 
     /**
-     * Initializes a Cell with given values
+     * @brief Initializes a Cell with given values
      * @param x x coordinate of the cell (pixels relative to top left corner of the window)
      * @param y y coordinate of the cell (pixels relative to top left corner of the window)
      */
     Cell(int x, int y, Field *owner);
 
     /**
-     * Getter of the owner field of the cell
+     * @brief Getter for the owner field of the cell
      * @return pointer to the field that the cell belongs to
      */
     [[nodiscard]] Field *GetOwner();
 
+    /**
+     * @brief Uses the CELL_SIZE constant from the Constants namespace
+     * @return size of the cell in pixels
+     */
     [[nodiscard]] int GetSize() override;
 
 private:

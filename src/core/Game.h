@@ -12,27 +12,28 @@
  */
 class Game : public Winnable {
 public:
-    /// Creates the window, loads the textures and initializes the fields
+    /// @brief Creates the window, loads the textures and initializes the fields
     Game();
 
-    /// Cleans up the game after it's finished
+    /// @brief Frees the allocated space that was used for the fields & unloads the textures
     ~Game();
 
     /**
-     * Getter for the target field (field that must be played on next)
+     * @brief Getter for the target field (field that must be played on next)
+     * @return pointer to the field that must be clicked next or nullptr if the next player has free choice
      */
     [[nodiscard]] static Field *GetTargetField();
 
-    /// Negates "isXTurn" and updates the log message
+    /// @brief Negates "isXTurn" and updates the log message
     static void NextTurn();
 
     /**
-     * Contains the main loop of the game
+     * @brief Contains the main loop of the game
      * @return winner of the game
      */
     State Run();
 
-    /// Draws all elements of the game into the window
+    /// @brief Draws all elements of the game into the window
     void Draw();
 
 private:
