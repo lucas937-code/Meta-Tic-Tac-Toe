@@ -2,6 +2,7 @@
 
 #include "raylib.h"
 
+/// Provides global constants that are useful at various places in the project
 namespace Constants {
     constexpr int WINDOW_SIZE = 1500;
     constexpr int BOARD_SIZE = WINDOW_SIZE - 150;

@@ -23,7 +23,7 @@ Field::~Field() {
 
 void Field::Draw() {
     forEachElement([](int row, int col, BoardElement *&element) {
-        Renderer::FillCell(dynamic_cast<const Cell *>(element));
+        Renderer::MarkCell(dynamic_cast<const Cell *>(element));
     });
 }
 

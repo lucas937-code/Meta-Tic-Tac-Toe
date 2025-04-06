@@ -79,7 +79,7 @@ void Renderer::UnloadTextures() {
     }
 }
 
-void Renderer::FillCell(const Cell *cell) {
+void Renderer::MarkCell(const Cell *cell) {
     Texture2D texture;
     switch (cell->GetState()) {
         case State::X:
@@ -104,7 +104,7 @@ void Renderer::FillCell(const Cell *cell) {
     DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
 
-void Renderer::FillField(const Field *field) {
+void Renderer::MarkFieldWinner(const Field *field) {
     Texture2D texture;
     switch (field->GetState()) {
         case State::X:
@@ -140,4 +140,21 @@ void Renderer::MarkTargetField(bool isXTurn) {
     auto size = static_cast<float>(Constants::FIELD_SIZE);
     Color color = isXTurn ? Constants::CUSTOM_RED : Constants::CUSTOM_BLUE;
     DrawRectangleLinesEx({x, y, size, size}, thickLineWidth, color);
+}
+
+void Renderer::DrawEndScreen(State winner) {
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 175});
+
+    std::string text = std::string(winner == State::X ? "Winner: X" : winner == State::O ? "Winner: O" : "Game is a tie");
+
+    DrawText(text.c_str(),
+             GetScreenWidth() / 2 - MeasureText(text.c_str(), 100) / 2,
+             GetScreenHeight() / 2 - 120,
+             100,
+             WHITE);
+    DrawText("Press 'R' to restart",
+             GetScreenWidth() / 2 - MeasureText("Press 'R' to restart", 100) / 2,
+             GetScreenHeight() / 2,
+             100,
+             WHITE);
 }

@@ -3,6 +3,7 @@
 
 #include "Game.h"
 
+/// Contains utility functions for handling user inputs
 class InputHandler {
 public:
     /**

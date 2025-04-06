@@ -11,6 +11,9 @@ enum class State {
     TIE         ///< field is a tie
 };
 
+/**
+ * Abstract class that represents an element of the board, so either a cell or a field
+ */
 class BoardElement {
 public:
     /**

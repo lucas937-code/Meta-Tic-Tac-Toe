@@ -24,6 +24,8 @@ add_executable(MetaTicTacToe main.cpp
         src/BoardElement.cpp
         include/Winnable.h
         src/Winnable.cpp
-        include/Constants.h)
+        include/Constants.h
+        include/WindowManager.h
+        src/WindowManager.cpp)
 
 target_link_libraries(MetaTicTacToe raylib opengl32 gdi32 winmm)

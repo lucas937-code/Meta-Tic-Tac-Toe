@@ -8,10 +8,6 @@ bool Game::isXTurn;
 Field *Game::targetField;
 
 Game::Game() : Winnable() {
-    InitWindow(Constants::WINDOW_SIZE, Constants::WINDOW_SIZE, "Meta TicTacToe");
-    SetTargetFPS(60);
-
-    isRunning = IsWindowReady();
     isXTurn = true;
     targetField = nullptr;
     Renderer::SetLogMessage("It's X's Turn");
@@ -34,11 +30,6 @@ Game::~Game() {
         element = nullptr;
     });
     Renderer::UnloadTextures();
-    CloseWindow();
-}
-
-bool Game::IsRunning() const {
-    return isRunning;
 }
 
 Field *Game::GetTargetField() {
@@ -50,31 +41,35 @@ void Game::NextTurn() {
     Renderer::SetLogMessage(isXTurn ? "It's X's Turn" : "It's O's Turn");
 }
 
-void Game::Run() {
-    if (!isRunning) return;
-
+State Game::Run() {
     while (!WindowShouldClose()) {
         BeginDrawing();
-        Renderer::DrawBoard();
         Draw();
-        Renderer::ShowLogMessage();
-        Renderer::MarkTargetField(isXTurn);
         EndDrawing();
 
-        if (HandleInput() == nullptr) continue;
+        if (IsKeyPressed(KEY_ENTER)) {
+            return State::TIE;
+        }
+
+        if (HandleInput() == nullptr) continue;     // don't need to check for a winner if no field has changed
 
         State winner = this->CheckWin();
-        if (winner == State::EMPTY) continue;
-        Renderer::SetLogMessage(winner == State::X ? "X has won" : winner == State::O ? "O has won" : "Game is a tie");
+        if (winner != State::EMPTY) {
+            return winner;
+        }
     }
+    return State::TIE;
 }
 
 void Game::Draw() {
+    Renderer::DrawBoard();
     forEachElement([](int row, int col, BoardElement *&element) {
         auto *field = dynamic_cast<Field *>(element);
         field->Draw();
-        Renderer::FillField(dynamic_cast<const Field *>(element));
+        Renderer::MarkFieldWinner(dynamic_cast<const Field *>(element));
     });
+    Renderer::ShowLogMessage();
+    Renderer::MarkTargetField(isXTurn);
 }
 
 Field *Game::HandleInput() {

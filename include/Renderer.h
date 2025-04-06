@@ -5,6 +5,9 @@
 #include "Cell.h"
 #include "raylib.h"
 
+/**
+ * Class with all static functions that draw the content in the window
+ */
 class Renderer {
 public:
     /**
@@ -25,14 +28,29 @@ public:
     /// Unloads the textures for the pictures
     static void UnloadTextures();
 
-    /// Fills the cell with an X or O depending on its state
-    static void FillCell(const Cell *cell);
+    /**
+     * Marks the cell with an X or O depending on its state
+     * @param cell cell to fill
+     */
+    static void MarkCell(const Cell *cell);
 
-    /// Marks the field according to the winner
-    static void FillField(const Field *field);
+    /**
+     * Marks the field according to the winner
+     * @param field field to mark
+     */
+    static void MarkFieldWinner(const Field *field);
 
-    /// Draws a red rectangle around the target field
+    /**
+     * Draws a red rectangle around the target field
+     * @param isXTurn whose turn it is
+     */
     static void MarkTargetField(bool isXTurn);
+
+    /**
+     * Draws the end screen (semi-transparent background, show winner, "press R to restart")
+     * @param winner winner of the game
+     */
+    static void DrawEndScreen(State winner);
 
 private:
     static std::unordered_map<std::string, Texture2D> textureMap;

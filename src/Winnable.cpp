@@ -1,9 +1,5 @@
 #include "../include/Winnable.h"
 
-std::vector<std::vector<BoardElement *>> &Winnable::GetElements() {
-    return elements;
-}
-
 std::pair<int, int> &Winnable::GetElementPosition(BoardElement &element) {
     return elementMap[&element];
 }
