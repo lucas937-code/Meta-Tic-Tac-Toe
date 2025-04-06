@@ -42,6 +42,9 @@ You can find the detailed ruleset on
 
 ### Setup instructions
 
+
+👉 You can also use the [prebuilt version here](./bin/MetaTicTacToe.exe) to try it out directly (Windows only).
+
 TODO
 
 ---
@@ -67,6 +70,7 @@ TODO
 ---
 
 ## 🧠 Architecture Overview 
+
 - **Game:** Top-level manager of game state and main loop
 - **Field:** Represents a subgame (3x3 grid of cells)
 - **Cell:** Holds the state of a single square in a subgame
@@ -77,7 +81,20 @@ TODO
 
 ---
 
+## 📚 Doxygen documentation
+
+The project uses [Doxygen](https://www.doxygen.nl/download.html) for generating code documentation. If you want to generate 
+and view the documentation locally, make sure you have Doxygen installed. You can then run the following command in the project root:
+
+```bash
+doxygen Doxyfile
+```
+
+This will generate the documentation in the `docs/` folder. By default, it is available in HTML, LaTeX and XML. 
+
+---
+
 ## 🎓 Academic Note
 
 This project was created as part of the university course "Programming in C++" at the
-Berlin School of Economics and Law
+Berlin School of Economics and Law.
