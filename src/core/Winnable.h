@@ -7,7 +7,7 @@
 #include "BoardElement.h"
 
 /**
- * Represents a thing that can be won in a game, so a field or the game itself\n
+ * @brief Represents a thing that can be won in a game, so a field or the game itself\n
  * It's mainly used for managing the matrix of board elements that both a game and a field contains
  */
 class Winnable {

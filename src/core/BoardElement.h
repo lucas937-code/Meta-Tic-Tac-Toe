@@ -2,7 +2,7 @@
 #define METATICTACTOE_BOARDELEMENT_H
 
 /**
- * Enum class that represents the state of a BoardElement\n
+ * @brief Enum class that represents the state of a BoardElement\n
  *
  * - `EMPTY`: The cell is empty or the field contains one or more empty cells.\n
  * - `X`: The cell is marked by X or the field is won by X.\n
@@ -10,10 +10,10 @@
  * - `TIE`: The field has reached a tie (no winner).\n
  */
 enum class State {
-    EMPTY,
-    X,
-    O,
-    TIE
+    EMPTY,      ///< cell is empty or field has one or more empty cells
+    X,          ///< cell is set by X or field is won by X
+    O,          ///< cell is set by O or field is won by O
+    TIE         ///< field is a tie
 };
 
 /// Abstract class that represents an element of the board, so either a cell or a field

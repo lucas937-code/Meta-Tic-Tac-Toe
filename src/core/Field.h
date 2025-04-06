@@ -5,9 +5,8 @@
 #include "Winnable.h"
 
 /**
- * Represents one of the 9 fields of the whole board\n
- * Contains 9 cells\n
- * Inherits from BoardElement and Winnable
+ * @brief Represents one of the 9 fields of the whole board that Contains 9 cells.
+ * It inherits from both BoardElement and Winnable
  */
 class Field : public BoardElement, public Winnable {
 public:

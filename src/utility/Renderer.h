@@ -5,9 +5,7 @@
 #include "../core/Cell.h"
 #include "raylib.h"
 
-/**
- * Class with all static functions that draw the content in the window
- */
+/// @brief Class with all static functions that draw the content in the window
 class Renderer {
 public:
     /**

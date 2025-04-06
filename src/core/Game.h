@@ -7,9 +7,7 @@
 #include <vector>
 #include <map>
 
-/**
- * Represents a Meta-Tic-Tac-Toe game
- */
+/// @brief Represents a Meta-Tic-Tac-Toe game
 class Game : public Winnable {
 public:
     /// @brief Creates the window, loads the textures and initializes the fields

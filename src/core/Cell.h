@@ -4,9 +4,7 @@
 #include "BoardElement.h"
 #include "Field.h"
 
-/**
- * Represents one cell of a field and is the smallest unit of the board
- */
+/// @brief Represents one cell of a field and is the smallest unit of the board
 class Cell : public BoardElement {
 public:
     /// @brief Initializes a Cell with default values of the BoardElement default constructor and the owner to nullptr

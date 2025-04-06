@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-/// Provides global constants that are useful at various places in the project
+/// @brief Provides global constants that are useful at various places in the project
 namespace Constants {
     /**
      * @brief The size of the window in pixels.

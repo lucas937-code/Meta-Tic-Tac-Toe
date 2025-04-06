@@ -3,7 +3,7 @@
 
 #include "../core/Game.h"
 
-/// Contains utility functions for managing the main window
+/// @brief Contains utility functions for managing the main window
 class WindowManager {
 public:
     /**
