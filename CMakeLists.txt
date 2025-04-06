@@ -3,8 +3,7 @@ project(MetaTicTacToe)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Raylib-Pfad anpassen
-set(RAYLIB_DIR "C:/raylib")
+set(RAYLIB_DIR "C:/Program Files/raylib")
 
 include_directories(${RAYLIB_DIR}/include)
 link_directories(${RAYLIB_DIR}/lib)

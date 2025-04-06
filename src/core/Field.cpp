@@ -2,10 +2,10 @@
 #include "../utility/Renderer.h"
 #include "../utility/Constants.h"
 
-Field::Field(int x, int y) : BoardElement(x, y) {
+Field::Field(const int x, const int y) : BoardElement(x, y) {
     state = State::EMPTY;
 
-    elements = std::vector<std::vector<BoardElement *>>(Constants::FIELD_AMOUNT,
+    elements = std::vector(Constants::FIELD_AMOUNT,
                                                         std::vector<BoardElement *>(Constants::FIELD_AMOUNT, nullptr));
 
     forEachElement([&](int row, int col, BoardElement *&element) {
@@ -15,14 +15,14 @@ Field::Field(int x, int y) : BoardElement(x, y) {
 }
 
 Field::~Field() {
-    forEachElement([](int row, int col, BoardElement *&element) {
+    forEachElement([](int, int, BoardElement *&element) {
         delete element;
         element = nullptr;
     });
 }
 
 void Field::Draw() {
-    forEachElement([](int row, int col, BoardElement *&element) {
+    forEachElement([](int, int, BoardElement *&element) {
         Renderer::MarkCell(dynamic_cast<const Cell *>(element));
     });
 }

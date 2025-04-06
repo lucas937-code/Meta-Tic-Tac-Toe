@@ -14,6 +14,7 @@ public:
      * @brief Initializes a Cell with given values
      * @param x x coordinate of the cell (pixels relative to top left corner of the window)
      * @param y y coordinate of the cell (pixels relative to top left corner of the window)
+     * @param owner field that the cell is part of
      */
     Cell(int x, int y, Field *owner);
 
@@ -21,7 +22,7 @@ public:
      * @brief Getter for the owner field of the cell
      * @return pointer to the field that the cell belongs to
      */
-    [[nodiscard]] Field *GetOwner();
+    [[nodiscard]] Field *GetOwner() const;
 
     /**
      * @brief Uses the CELL_SIZE constant from the Constants namespace

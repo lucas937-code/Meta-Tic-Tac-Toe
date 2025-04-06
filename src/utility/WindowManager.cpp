@@ -9,7 +9,7 @@ bool WindowManager::InitializeWindow() {
     return IsWindowReady();
 }
 
-bool WindowManager::ShowEndScreen(Game &game, State winner) {
+bool WindowManager::ShowEndScreen(Game &game, const State winner) {
     while (!WindowShouldClose()) {
         BeginDrawing();
         game.Draw();

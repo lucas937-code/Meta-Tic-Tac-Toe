@@ -4,8 +4,8 @@
 #include "../core/Game.h"
 #include <filesystem>
 
-const int thickLineWidth = 7;
-const int thinLineWidth = 1;
+constexpr int thickLineWidth = 7;
+constexpr int thinLineWidth = 1;
 
 std::unordered_map<std::string, Texture2D> Renderer::textureMap;
 std::string Renderer::logMessage;
@@ -18,26 +18,26 @@ void Renderer::DrawBoard() {
     ClearBackground(Constants::CUSTOM_BG);
 
     // draw square around the board
-    DrawRectangleLinesEx({(float) Constants::OFFSET,
-                          (float) Constants::OFFSET,
-                          (float) Constants::BOARD_SIZE,
-                          (float) Constants::BOARD_SIZE},
+    DrawRectangleLinesEx({static_cast<float>(Constants::OFFSET),
+                          static_cast<float>(Constants::OFFSET),
+                          static_cast<float>(Constants::BOARD_SIZE),
+                          static_cast<float>(Constants::BOARD_SIZE)},
                          thickLineWidth,
                          WHITE);
 
 
     // draw thick lines for the meta field
     for (int i = 1; i < Constants::FIELD_AMOUNT; i++) {
-        int pos = i * Constants::FIELD_AMOUNT * Constants::CELL_SIZE + Constants::OFFSET;
+        const int pos = i * Constants::FIELD_AMOUNT * Constants::CELL_SIZE + Constants::OFFSET;
 
         // draw vertical lines
-        DrawLineEx({(float) pos, (float) Constants::OFFSET},
-                   {(float) pos, (float) (Constants::BOARD_SIZE + Constants::OFFSET)},
+        DrawLineEx({static_cast<float>(pos), static_cast<float>(Constants::OFFSET)},
+                   {static_cast<float>(pos), static_cast<float>(Constants::BOARD_SIZE + Constants::OFFSET)},
                    thickLineWidth,
                    WHITE);
         // draw horizontal lines
-        DrawLineEx({(float) Constants::OFFSET, (float) pos},
-                   {(float) (Constants::BOARD_SIZE + Constants::OFFSET), (float) pos},
+        DrawLineEx({static_cast<float>(Constants::OFFSET), static_cast<float>(pos)},
+                   {static_cast<float>(Constants::BOARD_SIZE + Constants::OFFSET), static_cast<float>(pos)},
                    thickLineWidth,
                    WHITE);
     }
@@ -47,16 +47,16 @@ void Renderer::DrawBoard() {
         // skip positions for thick lines
         if (i % Constants::FIELD_AMOUNT == 0) continue;
 
-        int pos = i * Constants::CELL_SIZE + Constants::OFFSET;
+        const int pos = i * Constants::CELL_SIZE + Constants::OFFSET;
 
-        // Vertikale Linien für kleine Felder
-        DrawLineEx({(float) pos, (float) Constants::OFFSET},
-                   {(float) pos, (float) (Constants::BOARD_SIZE + Constants::OFFSET)},
+        // draw vertical lines
+        DrawLineEx({static_cast<float>(pos), static_cast<float>(Constants::OFFSET)},
+                   {static_cast<float>(pos), static_cast<float>(Constants::BOARD_SIZE + Constants::OFFSET)},
                    thinLineWidth,
                    WHITE);
         // draw horizontal lines
-        DrawLineEx({(float) Constants::OFFSET, (float) pos},
-                   {(float) (Constants::BOARD_SIZE + Constants::OFFSET), (float) pos},
+        DrawLineEx({static_cast<float>(Constants::OFFSET), static_cast<float>(pos)},
+                   {static_cast<float>(Constants::BOARD_SIZE + Constants::OFFSET), static_cast<float>(pos)},
                    thinLineWidth,
                    WHITE);
     }
@@ -67,15 +67,14 @@ void Renderer::ShowLogMessage() {
 }
 
 void Renderer::LoadTextures() {
-    std::string dirPath = "../assets";
-    for (const auto &img: std::filesystem::directory_iterator(dirPath)) {
+    for (const auto &img: std::filesystem::directory_iterator("../assets")) {
         textureMap[img.path().filename().string()] = LoadTexture(img.path().string().c_str());
     }
 }
 
 void Renderer::UnloadTextures() {
-    for (const auto &texture: textureMap) {
-        UnloadTexture(texture.second);
+    for (const auto &[fst, snd]: textureMap) {
+        UnloadTexture(snd);
     }
 }
 
@@ -92,11 +91,11 @@ void Renderer::MarkCell(const Cell *cell) {
             return;
     }
 
-    Rectangle source = {0, 0,
+    const Rectangle source = {0, 0,
                         static_cast<float>(texture.width),
                         static_cast<float>(texture.height)};
 
-    Rectangle dest = {static_cast<float>(cell->GetX()),
+    const Rectangle dest = {static_cast<float>(cell->GetX()),
                       static_cast<float>(cell->GetY()),
                       static_cast<float>(Constants::CELL_SIZE),
                       static_cast<float>(Constants::CELL_SIZE)};
@@ -120,10 +119,10 @@ void Renderer::MarkFieldWinner(const Field *field) {
             return;
     }
 
-    Rectangle source = {0, 0,
+    const Rectangle source = {0, 0,
                         static_cast<float>(texture.width),
                         static_cast<float>(texture.height)};
-    Rectangle dest = {static_cast<float>(field->GetX()),
+    const Rectangle dest = {static_cast<float>(field->GetX()),
                       static_cast<float>(field->GetY()),
                       static_cast<float>(Constants::FIELD_SIZE),
                       static_cast<float>(Constants::FIELD_SIZE)};
@@ -131,21 +130,21 @@ void Renderer::MarkFieldWinner(const Field *field) {
     DrawTexturePro(texture, source, dest, {0, 0}, 0.0f, WHITE);
 }
 
-void Renderer::MarkTargetField(bool isXTurn) {
-    Field *field = Game::GetTargetField();
+void Renderer::MarkTargetField(const bool isXTurn) {
+    const Field *field = Game::GetTargetField();
     if (field == nullptr) return;
 
-    auto x = static_cast<float>(field->GetX());
-    auto y = static_cast<float>(field->GetY());
-    auto size = static_cast<float>(Constants::FIELD_SIZE);
-    Color color = isXTurn ? Constants::CUSTOM_RED : Constants::CUSTOM_BLUE;
+    const auto x = static_cast<float>(field->GetX());
+    const auto y = static_cast<float>(field->GetY());
+    constexpr auto size = static_cast<float>(Constants::FIELD_SIZE);
+    const Color color = isXTurn ? Constants::CUSTOM_RED : Constants::CUSTOM_BLUE;
     DrawRectangleLinesEx({x, y, size, size}, thickLineWidth, color);
 }
 
-void Renderer::DrawEndScreen(State winner) {
+void Renderer::DrawEndScreen(const State winner) {
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 175});
 
-    std::string text = std::string(winner == State::X ? "Winner: X" :
+    const auto text = std::string(winner == State::X ? "Winner: X" :
                                    winner == State::O ? "Winner: O" :
                                    winner == State::TIE ? "Game is a tie" : "Game was paused");
 

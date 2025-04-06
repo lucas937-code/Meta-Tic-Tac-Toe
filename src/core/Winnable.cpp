@@ -4,16 +4,16 @@ std::pair<int, int> &Winnable::GetElementPosition(BoardElement &element) {
     return elementMap[&element];
 }
 
-BoardElement *Winnable::GetElementByPosition(std::pair<int, int> &position) {
-    for (auto &it: elementMap) {
-        if (it.second == position) {
-            return it.first;
+BoardElement *Winnable::GetElementByPosition(const std::pair<int, int> &position) const {
+    for (const auto &[fst, snd]: elementMap) {
+        if (snd == position) {
+            return fst;
         }
     }
     return nullptr;
 }
 
-State Winnable::CheckWin() {
+State Winnable::CheckWin() const {
     bool isDraw = true;
 
     for (int i = 0; i < elements.size(); i++) {

@@ -3,9 +3,6 @@
 
 #include "Field.h"
 #include "Cell.h"
-#include "raylib.h"
-#include <vector>
-#include <map>
 
 /// @brief Represents a Meta-Tic-Tac-Toe game
 class Game : public Winnable {

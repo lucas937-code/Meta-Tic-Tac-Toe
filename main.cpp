@@ -3,6 +3,7 @@
 #include "src/utility/WindowManager.h"
 
 #include <memory>
+#include <raylib.h>
 
 int main() {
     if (!WindowManager::InitializeWindow()) {
@@ -10,7 +11,7 @@ int main() {
         return 1;
     }
     while (!WindowShouldClose()) {
-        std::unique_ptr<Game> game = std::make_unique<Game>();
+        auto game = std::make_unique<Game>();
         while (WindowManager::ShowEndScreen(game.operator*(), game->Run())) {
         }
     }

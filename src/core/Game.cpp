@@ -53,8 +53,7 @@ State Game::Run() {
 
         if (HandleInput() == nullptr) continue;     // don't need to check for a winner if no field has changed
 
-        State winner = this->CheckWin();
-        if (winner != State::EMPTY) {
+        if (const State winner = this->CheckWin(); winner != State::EMPTY) {
             return winner;
         }
     }
@@ -74,21 +73,21 @@ void Game::Draw() {
 
 Field *Game::HandleInput() {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        Vector2 mousePos = GetMousePosition();
-        const int mouseX = static_cast<int>(mousePos.x);
-        const int mouseY = static_cast<int>(mousePos.y);
+        auto [x, y] = GetMousePosition();
+        const int mouseX = static_cast<int>(x);
+        const int mouseY = static_cast<int>(y);
 
         auto *clickedField = dynamic_cast<Field *>(InputHandler::DetermineClickedElement(mouseX, mouseY, *this));
         if (clickedField == nullptr) return nullptr;
         if (clickedField->GetState() != State::EMPTY) {
             Renderer::SetLogMessage("Field is already sealed");
             return nullptr;
-        } else if (targetField != nullptr && clickedField != targetField) {
+        } if (targetField != nullptr && clickedField != targetField) {
             Renderer::SetLogMessage("Use the highlighted field");
             return nullptr;
         }
 
-        auto clickedCell = dynamic_cast<Cell *>(InputHandler::DetermineClickedElement(mouseX, mouseY, *clickedField));
+        const auto clickedCell = dynamic_cast<Cell *>(InputHandler::DetermineClickedElement(mouseX, mouseY, *clickedField));
 
         if (clickedCell == nullptr) return nullptr;     // shouldn't be possible anyway but safety first
         if (clickedCell->GetState() != State::EMPTY) {

@@ -23,13 +23,13 @@ public:
      * @param position reference to the position in the element matrix (row, col)
      * @return pointer to the corresponding BoardElement or nullptr if there is no element at the given position
      */
-    BoardElement *GetElementByPosition(std::pair<int, int> &position);
+    BoardElement *GetElementByPosition(const std::pair<int, int> &position) const;
 
     /**
      * @brief Determines if a player has won
      * @return winner of the winnable as a state
      */
-    State CheckWin();
+    State CheckWin() const;
 
     /**
      * @brief Executes the passed lambda function for every element in the element matrix

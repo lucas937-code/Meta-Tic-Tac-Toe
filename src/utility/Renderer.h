@@ -9,7 +9,7 @@
 class Renderer {
 public:
     /**
-     * Setter for the log message (message on the bottom left corner of the window)
+     * Setter for the log message (message in the bottom left corner of the window)
      * @param msg new message
      */
     static void SetLogMessage(std::string msg);

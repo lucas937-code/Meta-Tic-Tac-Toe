@@ -8,7 +8,7 @@
  * @brief Represents one of the 9 fields of the whole board that Contains 9 cells.
  * It inherits from both BoardElement and Winnable
  */
-class Field : public BoardElement, public Winnable {
+class Field final : public BoardElement, public Winnable {
 public:
     /**
      * @brief Initializes the cells of the field

@@ -2,7 +2,7 @@
 
 BoardElement::BoardElement() : x(0), y(0), state(State::EMPTY) {}
 
-BoardElement::BoardElement(int x, int y) : x(x), y(y), state(State::EMPTY) {}
+BoardElement::BoardElement(const int x, const int y) : x(x), y(y), state(State::EMPTY) {}
 
 int BoardElement::GetX() const {
     return x;
@@ -16,6 +16,6 @@ State BoardElement::GetState() const {
     return state;
 }
 
-void BoardElement::SetState(State newState) {
+void BoardElement::SetState(const State newState) {
     state = newState;
 }
