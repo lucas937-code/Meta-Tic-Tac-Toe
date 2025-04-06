@@ -37,15 +37,20 @@ You can find the detailed ruleset on
 
 ### Requirements
 - C++17 or later
-- [Raylib](https://www.raylib.com/) (recommended: v5.5 or later)
+- [Raylib](https://www.raylib.com/) (recommended: [v5.5](https://github.com/raysan5/raylib/releases) or later)
 - CMake
 
-### Setup instructions
+### Raylib Setup
 
+This project uses the Findraylib.cmake script to locate Raylib during the build process.
+For this to work, Raylib should be installed in a standard location—ideally via a package manager or placed 
+in a folder included in your system’s CMAKE_PREFIX_PATH.
+
+Alternatively, set the environment variable RAYLIB_ROOT to the installation path.
+
+### Prebuilt version
 
 👉 You can also use the [prebuilt version here](./bin/MetaTicTacToe.exe) to try it out directly (Windows only).
-
-TODO
 
 ---
 
@@ -91,6 +96,18 @@ doxygen Doxyfile
 ```
 
 This will generate the documentation in the `docs/` folder. By default, it is available in HTML, LaTeX and XML. 
+
+---
+
+## 🤝 Third-Party Resources
+
+This project was supported by the following third-party resources:
+
+- [Raylib](https://www.raylib.com/) – open-source C library for graphics and input
+- [Findraylib.cmake](https://github.com/RobLoach/raylib-app/blob/master/cmake/Findraylib.cmake) – CMake module script to locate raylib (from Raylib's CMake repository)
+- [Stack Overflow](https://stackoverflow.com/) – for code snippets and debugging help
+- [Geeks for Geeks](https://www.geeksforgeeks.org/) – for algorithm explanations and examples
+- [ChatGPT](https://openai.com/chatgpt) – for design advice, code assistance and documentation support
 
 ---
 
