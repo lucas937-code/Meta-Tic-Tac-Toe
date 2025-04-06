@@ -3,6 +3,7 @@
 #include "Renderer.h"
 
 bool WindowManager::InitializeWindow() {
+    SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(Constants::WINDOW_SIZE, Constants::WINDOW_SIZE, "Meta TicTacToe");
     SetTargetFPS(60);
     return IsWindowReady();
