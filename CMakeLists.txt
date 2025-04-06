@@ -24,7 +24,7 @@ add_executable(MetaTicTacToe main.cpp
         src/core/BoardElement.cpp
         src/core/Winnable.h
         src/core/Winnable.cpp
-        src/core/Constants.h
+        src/utility/Constants.h
         src/utility/WindowManager.h
         src/utility/WindowManager.cpp)
 

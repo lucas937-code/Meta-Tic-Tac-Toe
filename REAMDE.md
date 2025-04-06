@@ -15,7 +15,8 @@ You can find the detailed ruleset on
 ## 🎮 Controls
 
 - **Left Click**: Place your mark
-- **Enter**: Finish current game and show end screen
+- **Enter**: Pause current game and show end screen
+- **B**: Continue the paused game
 - **R**: Restart the game from the end screen
 - **Escape**: Exit the application
 
@@ -23,12 +24,12 @@ You can find the detailed ruleset on
 
 ## 🖥️ Development Environment
 
-- Operating System: Windows 11 (64-bit)
-- Compiler: g++ via MinGW (v14.2.0)
-- CMake Version: 3.31.5
-- Raylib Version: 5.5
-- Build Tool: Ninja
-- IDE: CLion
+- **Operating System**: Windows 11 (64-bit)
+- **Compiler**: g++ via MinGW (v14.2.0)
+- **CMake Version**: 3.31.5
+- **Raylib Version**: 5.5
+- **Build Tool**: Ninja
+- **IDE**: CLion
 
 ---
 
@@ -69,7 +70,7 @@ TODO
 - **Game:** Top-level manager of game state and main loop
 - **Field:** Represents a subgame (3x3 grid of cells)
 - **Cell:** Holds the state of a single square in a subgame
-- **BoardElement** & Winnable: Abstract logic for win-checking
+- **BoardElement & Winnable:** Abstract logic for win-checking
 - **InputHandler:** Processes user input (mouse clicks)
 - **Renderer:** Responsible for rendering all visuals (board, X/O, winner screen)
 - **WindowManager:** Handles window lifecycle and endscreen display

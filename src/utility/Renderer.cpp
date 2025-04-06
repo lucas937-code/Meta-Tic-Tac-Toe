@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include "raylib.h"
-#include "../core/Constants.h"
+#include "Constants.h"
 #include "../core/Game.h"
 #include <filesystem>
 
@@ -145,11 +145,13 @@ void Renderer::MarkTargetField(bool isXTurn) {
 void Renderer::DrawEndScreen(State winner) {
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 175});
 
-    std::string text = std::string(winner == State::X ? "Winner: X" : winner == State::O ? "Winner: O" : "Game is a tie");
+    std::string text = std::string(winner == State::X ? "Winner: X" :
+                                   winner == State::O ? "Winner: O" :
+                                   winner == State::TIE ? "Game is a tie" : "Game was paused");
 
     DrawText(text.c_str(),
              GetScreenWidth() / 2 - MeasureText(text.c_str(), 100) / 2,
-             GetScreenHeight() / 2 - 120,
+             GetScreenHeight() / 2 - 150,
              100,
              WHITE);
     DrawText("Press 'R' to restart",
@@ -157,4 +159,11 @@ void Renderer::DrawEndScreen(State winner) {
              GetScreenHeight() / 2,
              100,
              WHITE);
+    if (winner == State::EMPTY) {
+        DrawText("Or press 'B' to continue",
+                 GetScreenWidth() / 2 - MeasureText("Or press 'B' to continue", 100) / 2,
+                 GetScreenHeight() / 2 + 150,
+                 100,
+                 WHITE);
+    }
 }

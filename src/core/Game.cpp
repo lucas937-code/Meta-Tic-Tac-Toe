@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Constants.h"
+#include "../utility/Constants.h"
 #include "../utility/Renderer.h"
 #include "../utility/InputHandler.h"
 #include "raylib.h"
@@ -48,7 +48,7 @@ State Game::Run() {
         EndDrawing();
 
         if (IsKeyPressed(KEY_ENTER)) {
-            return State::TIE;
+            return State::EMPTY;
         }
 
         if (HandleInput() == nullptr) continue;     // don't need to check for a winner if no field has changed

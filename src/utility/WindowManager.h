@@ -16,8 +16,9 @@ public:
      * Shows the end screen with the last state of the game in the background
      * @param game game that was just finished
      * @param winner winner of the game
+     * @return if the game should be continued
      */
-    static void ShowEndScreen(Game &game, State winner);
+    static bool ShowEndScreen(Game &game, State winner);
 };
 
 #endif

@@ -11,7 +11,8 @@ int main() {
     }
     while (!WindowShouldClose()) {
         std::unique_ptr<Game> game = std::make_unique<Game>();
-        WindowManager::ShowEndScreen(game.operator*(), game->Run());
+        while (WindowManager::ShowEndScreen(game.operator*(), game->Run())) {
+        }
     }
     return 0;
 }

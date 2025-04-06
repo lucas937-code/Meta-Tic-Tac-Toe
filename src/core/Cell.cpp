@@ -1,5 +1,5 @@
 #include "Cell.h"
-#include "Constants.h"
+#include "../utility/Constants.h"
 
 Cell::Cell() : BoardElement(), owner(nullptr) {}
 

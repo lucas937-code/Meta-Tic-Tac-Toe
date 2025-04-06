@@ -1,6 +1,6 @@
 #include "Field.h"
 #include "../utility/Renderer.h"
-#include "Constants.h"
+#include "../utility/Constants.h"
 
 Field::Field(int x, int y) : BoardElement(x, y) {
     state = State::EMPTY;
